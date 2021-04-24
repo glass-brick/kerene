@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal player_died
+
 export (int) var max_speed = 400
 export (int) var acceleration = 50
 export (int) var jump_speed = -600
@@ -67,5 +69,13 @@ func _physics_process(delta):
 	
 func _on_Player_get_hit(damage):
 	self.health -= damage
+	if health <= 0:
+		emit_signal('player_died')
+		hud_path_node.player_is_dead()
+		$RestartAfterDeath.start()
 	self.hud_path_node.update_health(self.health)
 
+
+
+func _on_RestartAfterDeath_timeout():
+	get_tree().reload_current_scene()

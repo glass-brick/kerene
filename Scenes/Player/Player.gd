@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal player_died
+
 export (int) var max_speed = 400
 export (int) var acceleration = 50
 export (int) var jump_speed = -600
@@ -12,6 +14,7 @@ export (NodePath) var hud_path
 var velocity = Vector2()
 var jumping = false
 var hud_path_node
+var is_dead = false
 
 
 func _ready():
@@ -57,17 +60,30 @@ func get_animation():
 
 
 func _physics_process(delta):
-	get_input()
-	get_animation()
+	if not is_dead:
+		get_input()
+		get_animation()
 
-	velocity.y += gravity * delta
+		velocity.y += gravity * delta
 
-	if jumping:
-		jumping = false
+		if jumping:
+			jumping = false
 
-	velocity = move_and_slide(velocity, Vector2(0, -1))
+		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
 func _on_hit(damage):
 	self.health -= damage
+	if health <= 0:
+		emit_signal('player_died')
+		hud_path_node.player_is_dead()
+		$RestartAfterDeath.start()
+		self.is_dead = true
+		self.velocity.x = 0
+		self.velocity.y = 0
+		# Aca iria la animacion de la muerte si tuvieramos
 	self.hud_path_node.update_health(self.health)
+
+
+func _on_RestartAfterDeath_timeout():
+	get_tree().reload_current_scene()

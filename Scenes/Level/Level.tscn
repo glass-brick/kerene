@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Level/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/Monsters/Rat.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Items/GenericItem.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Items/BasicAttack.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Items/GenericItemScript.gd" type="Script" id=10]
 
 [node name="Node2D" type="Node2D"]
 
@@ -50,4 +51,5 @@ position = Vector2( 392, 240 )
 
 [node name="Area2D" parent="." instance=ExtResource( 8 )]
 position = Vector2( 513, 92 )
+weapon_script = ExtResource( 10 )
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

@@ -1,8 +1,6 @@
-extends "res://Scenes/Items/GenericItem.gd"
+var item_name = "BasicAttack"
 
-
-func _ready():
-	pass # Replace with function body.
+var item_owner = false
 
 func use():
 	print("uso y todo bien")

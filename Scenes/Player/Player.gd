@@ -19,10 +19,6 @@ var jumping = false
 var hud_path_node
 var is_dead = false
 var items = {
-	"basic_attack":{
-		"object": basic_item,
-		"amount": 1
-	}
 }
 
 
@@ -30,6 +26,10 @@ var items = {
 func _ready():
 	self.hud_path_node = get_node(hud_path)
 	self.hud_path_node.update_health(self.health)
+	self.items["basic_attack"] = {
+		"object": basic_item.new(),
+		"amount": 1
+	}
 	active_item = self.items["basic_attack"]["object"]
 	
 
@@ -108,21 +108,22 @@ func _on_RestartAfterDeath_timeout():
 	get_tree().reload_current_scene()
 
 func pickup_item(item):
-	print(item)
-	
-	if item.item_name in self.items:
-		self.items[item.item_name]["amount"] += 1
+	var new_item = item.new()
+	if new_item.item_name in self.items:
+		self.items[new_item.item_name]["amount"] += 1
 	else:
-		self.items[item.item_name] = {"amount": 1, "object": item}
-	item.pick_up_item()
+		new_item.item_owner = self
+		self.items[new_item.item_name] = {"amount": 1, "object": new_item}
+	return true
 	
 func use_item():
 	if self.active_item:
 		self.active_item.use()
 
 func spend_active_item():
-	if self.items[self.active_item.item_name] in self.items:
-		self.items[self.active_item.item_name]["amount"] -= 1
-		if self.items[self.active_item.item_name]["amount"] < 1:
+	var current_item_name = self.active_item.item_name
+	if self.items[current_item_name] in self.items:
+		self.items[current_item_name]["amount"] -= 1
+		if self.items[current_item_name]["amount"] < 1:
 			active_item = self.items["basic_attack"]["object"]
 	

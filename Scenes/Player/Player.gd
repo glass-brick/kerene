@@ -4,10 +4,17 @@ export (int) var max_speed = 400
 export (int) var acceleration = 50
 export (int) var jump_speed = -600
 export (int) var gravity = 1200
+export (int) var health = 100
+
+export (NodePath) var hud_path
 
 var velocity = Vector2()
 var jumping = false
+var hud_path_node
 
+func _ready():
+	self.hud_path_node = get_node(hud_path)
+	self.hud_path_node.update_health(self.health)
 
 func get_input():
 	var right = Input.is_action_pressed('ui_right')
@@ -55,3 +62,8 @@ func _physics_process(delta):
 		jumping = false
 
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+func _on_Player_get_hit(damage):
+	self.health -= damage
+	self.hud_path_node.update_health(self.health)
+

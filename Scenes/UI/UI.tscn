@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="Label" parent="."]
+margin_top = -0.222721
+margin_right = 40.0
+margin_bottom = 13.7773
+text = "Health:"
+__meta__ = {
+"_edit_use_anchors_": false
+}

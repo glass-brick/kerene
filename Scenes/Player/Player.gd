@@ -97,7 +97,8 @@ func _on_hit(damageTaken):
 	if health <= 0:
 		emit_signal('player_died')
 		hud.player_is_dead()
-		$RestartAfterDeath.start()
+		if not is_dead:
+			$RestartAfterDeath.start()
 		self.is_dead = true
 		self.velocity.x = 0
 		self.velocity.y = 0

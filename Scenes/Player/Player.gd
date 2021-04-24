@@ -9,23 +9,37 @@ export (int) var jump_damage = 10
 export (int) var gravity = 1200
 export (int) var health = 100
 
+export (Script) var basic_item
+
 export (NodePath) var hud_path
+var active_item 
 
 var velocity = Vector2()
 var jumping = false
 var hud_path_node
 var is_dead = false
+var items = {
+	"basic_attack":{
+		"object": basic_item,
+		"amount": 1
+	}
+}
+
 
 
 func _ready():
 	self.hud_path_node = get_node(hud_path)
 	self.hud_path_node.update_health(self.health)
+	active_item = self.items["basic_attack"]["object"]
+	
 
 
 func get_input():
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
 	var jump = Input.is_action_just_pressed('ui_select')
+	var use = Input.is_action_just_pressed("Use_item")
+	var change_item = Input.is_action_just_pressed("Change_item")
 
 	if (left or right) and not (left and right):
 		$AnimatedSprite.flip_h = left
@@ -44,6 +58,11 @@ func get_input():
 		jumping = true
 		velocity.y = jump_speed
 		_on_hit(self.jump_damage)
+		
+	if change_item:
+		self.active_item = self.items[self.items.keys()[-1]]["object"];
+	if use:
+		self.use_item()
 
 
 func get_animation():
@@ -87,3 +106,23 @@ func _on_hit(damage):
 
 func _on_RestartAfterDeath_timeout():
 	get_tree().reload_current_scene()
+
+func pickup_item(item):
+	print(item)
+	
+	if item.item_name in self.items:
+		self.items[item.item_name]["amount"] += 1
+	else:
+		self.items[item.item_name] = {"amount": 1, "object": item}
+	item.pick_up_item()
+	
+func use_item():
+	if self.active_item:
+		self.active_item.use()
+
+func spend_active_item():
+	if self.items[self.active_item.item_name] in self.items:
+		self.items[self.active_item.item_name]["amount"] -= 1
+		if self.items[self.active_item.item_name]["amount"] < 1:
+			active_item = self.items["basic_attack"]["object"]
+	

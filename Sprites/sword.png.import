@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Rat_Hit.png-5c6546efc9cfa5ad6b037671a2ad741b.stex"
+path="res://.import/sword.png-1cbf2b4fd1efdbc747c0161ef69297ef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BatCrabRatSlime/Rat/Rat_Hit.png"
-dest_files=[ "res://.import/Rat_Hit.png-5c6546efc9cfa5ad6b037671a2ad741b.stex" ]
+source_file="res://Sprites/sword.png"
+dest_files=[ "res://.import/sword.png-1cbf2b4fd1efdbc747c0161ef69297ef.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

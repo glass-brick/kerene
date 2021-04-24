@@ -8,18 +8,24 @@ export (int) var jump_speed = -600
 export (int) var jump_damage = 10
 export (int) var gravity = 1200
 export (int) var health = 100
+export (int) var damage = 10
 
 export (NodePath) var hud_path
+export (NodePath) var tilemap_path
 
 var velocity = Vector2()
 var jumping = false
-var hud_path_node
+var hud
 var is_dead = false
+var tilemap
+var cursor
 
 
 func _ready():
-	self.hud_path_node = get_node(hud_path)
-	self.hud_path_node.update_health(self.health)
+	self.tilemap = get_node(tilemap_path)
+	self.cursor = load("res://Scenes/Player/Cursor.gd").new(self)
+	self.hud = get_node(hud_path)
+	self.hud.update_health(self.health)
 
 
 func get_input():
@@ -61,6 +67,7 @@ func get_animation():
 
 func _physics_process(delta):
 	if not is_dead:
+		cursor.update()
 		get_input()
 		get_animation()
 
@@ -72,17 +79,17 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
-func _on_hit(damage):
-	self.health -= damage
+func _on_hit(damageTaken):
+	self.health -= damageTaken
 	if health <= 0:
 		emit_signal('player_died')
-		hud_path_node.player_is_dead()
+		hud.player_is_dead()
 		$RestartAfterDeath.start()
 		self.is_dead = true
 		self.velocity.x = 0
 		self.velocity.y = 0
 		# Aca iria la animacion de la muerte si tuvieramos
-	self.hud_path_node.update_health(self.health)
+	self.hud.update_health(self.health)
 
 
 func _on_RestartAfterDeath_timeout():

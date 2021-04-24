@@ -13,9 +13,11 @@ var velocity = Vector2()
 var jumping = false
 var hud_path_node
 
+
 func _ready():
 	self.hud_path_node = get_node(hud_path)
 	self.hud_path_node.update_health(self.health)
+
 
 func get_input():
 	var right = Input.is_action_pressed('ui_right')
@@ -38,7 +40,7 @@ func get_input():
 	if jump and is_on_floor():
 		jumping = true
 		velocity.y = jump_speed
-		_on_Player_get_hit(self.jump_damage)
+		_on_hit(self.jump_damage)
 
 
 func get_animation():
@@ -64,8 +66,8 @@ func _physics_process(delta):
 		jumping = false
 
 	velocity = move_and_slide(velocity, Vector2(0, -1))
-	
-func _on_Player_get_hit(damage):
+
+
+func _on_hit(damage):
 	self.health -= damage
 	self.hud_path_node.update_health(self.health)
-

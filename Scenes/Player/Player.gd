@@ -8,30 +8,30 @@ export (int) var jump_speed = -600
 export (int) var jump_damage = 10
 export (int) var gravity = 1200
 export (int) var health = 100
+export (int) var damage = 10
 
 export (Script) var basic_item
 
 export (NodePath) var hud_path
-var active_item 
+export (NodePath) var tilemap_path
 
+var active_item
 var velocity = Vector2()
 var jumping = false
-var hud_path_node
+var hud
 var is_dead = false
-var items = {
-}
-
+var items = {}
+var tilemap
+var cursor
 
 
 func _ready():
-	self.hud_path_node = get_node(hud_path)
-	self.hud_path_node.update_health(self.health)
-	self.items["basic_attack"] = {
-		"object": basic_item.new(),
-		"amount": 1
-	}
-	active_item = self.items["basic_attack"]["object"]
-	
+	self.items["basic_attack"] = {"object": basic_item.new(), "amount": 1}
+	self.active_item = self.items["basic_attack"]["object"]
+	self.tilemap = get_node(tilemap_path)
+	self.cursor = load("res://Scenes/Player/Cursor.gd").new(self)
+	self.hud = get_node(hud_path)
+	self.hud.update_health(self.health)
 
 
 func get_input():
@@ -58,9 +58,9 @@ func get_input():
 		jumping = true
 		velocity.y = jump_speed
 		_on_hit(self.jump_damage)
-		
+
 	if change_item:
-		self.active_item = self.items[self.items.keys()[-1]]["object"];
+		self.active_item = self.items[self.items.keys()[-1]]["object"]
 	if use:
 		self.use_item()
 
@@ -80,6 +80,7 @@ func get_animation():
 
 func _physics_process(delta):
 	if not is_dead:
+		cursor.update()
 		get_input()
 		get_animation()
 
@@ -91,21 +92,22 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
-func _on_hit(damage):
-	self.health -= damage
+func _on_hit(damageTaken):
+	self.health -= damageTaken
 	if health <= 0:
 		emit_signal('player_died')
-		hud_path_node.player_is_dead()
+		hud.player_is_dead()
 		$RestartAfterDeath.start()
 		self.is_dead = true
 		self.velocity.x = 0
 		self.velocity.y = 0
 		# Aca iria la animacion de la muerte si tuvieramos
-	self.hud_path_node.update_health(self.health)
+	self.hud.update_health(self.health)
 
 
 func _on_RestartAfterDeath_timeout():
 	get_tree().reload_current_scene()
+
 
 func pickup_item(item):
 	var new_item = item.new()
@@ -115,10 +117,12 @@ func pickup_item(item):
 		new_item.item_owner = self
 		self.items[new_item.item_name] = {"amount": 1, "object": new_item}
 	return true
-	
+
+
 func use_item():
 	if self.active_item:
 		self.active_item.use()
+
 
 func spend_active_item():
 	var current_item_name = self.active_item.item_name
@@ -126,4 +130,3 @@ func spend_active_item():
 		self.items[current_item_name]["amount"] -= 1
 		if self.items[current_item_name]["amount"] < 1:
 			active_item = self.items["basic_attack"]["object"]
-	

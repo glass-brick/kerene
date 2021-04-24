@@ -11,8 +11,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var enter = Input.is_action_pressed("ui_accept")
+func _process(_delta):
+	var enter = Input.is_action_pressed("zoom")
 	if enter:
 		zoom.x = 1
 		zoom.y = 1

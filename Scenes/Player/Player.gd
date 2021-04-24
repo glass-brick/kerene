@@ -3,6 +3,7 @@ extends KinematicBody2D
 export (int) var max_speed = 400
 export (int) var acceleration = 50
 export (int) var jump_speed = -600
+export (int) var jump_damage = 10
 export (int) var gravity = 1200
 export (int) var health = 100
 
@@ -37,6 +38,7 @@ func get_input():
 	if jump and is_on_floor():
 		jumping = true
 		velocity.y = jump_speed
+		_on_Player_get_hit(self.jump_damage)
 
 
 func get_animation():

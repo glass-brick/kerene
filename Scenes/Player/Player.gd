@@ -12,6 +12,7 @@ export (int) var damage = 10
 export (bool) var jump_damage_activated = false
 
 export (Script) var basic_item
+export (Script) var basic_item_projectile
 
 export (NodePath) var hud_path
 export (NodePath) var tilemap_path
@@ -27,12 +28,18 @@ var cursor
 
 
 func _ready():
-	self.items["basic_attack"] = {"object": basic_item.new(), "amount": 1}
+	var item = basic_item.new()
+	item.item_owner = self
+	self.items["basic_attack"] = {"object": item , "amount": 1}
+	var item_projectile = basic_item_projectile.new()
+	item_projectile.item_owner = self
+	self.items["basic_projectile_attack"] = {"object": item_projectile, "amount": 1}
 	self.active_item = self.items["basic_attack"]["object"]
 	self.tilemap = get_node(tilemap_path)
 	self.cursor = load("res://Scenes/Player/Cursor.gd").new(self)
 	self.hud = get_node(hud_path)
 	self.hud.update_health(self.health)
+	self.hud.update_active_item(self.active_item.item_name)
 
 
 func get_input():
@@ -40,7 +47,6 @@ func get_input():
 	var left = Input.is_action_pressed('ui_left')
 	var jump = Input.is_action_just_pressed('ui_select')
 	var use = Input.is_action_just_pressed("Use_item")
-	var change_item = Input.is_action_just_pressed("Change_item")
 
 	if (left or right) and not (left and right):
 		$AnimatedSprite.flip_h = left
@@ -61,10 +67,22 @@ func get_input():
 		if jump_damage_activated:
 			_on_hit(self.jump_damage)
 
-	if change_item:
-		self.active_item = self.items[self.items.keys()[-1]]["object"]
+	get_item_input()
 	if use:
 		self.use_item()
+
+func get_item_input():
+	var item = Input.is_action_just_pressed("item_1")
+	var item2 = Input.is_action_just_pressed("item_2")
+	var item3 = Input.is_action_just_pressed("item_3")
+	
+	if item:
+		active_item = self.items["basic_attack"]["object"]
+	if item2:
+		active_item = self.items["basic_projectile_attack"]["object"]
+	self.hud.update_active_item(self.active_item.item_name)
+
+	
 
 
 func get_animation():

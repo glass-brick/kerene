@@ -46,7 +46,8 @@ func _physics_process(delta):
 			var difference = self.position - target.position
 			projectile.direction = (target.position - self.position).normalized()
 			projectile.speed = projectile_speed
-			add_child(projectile)
+			get_tree().get_root().get_node("Level").add_child(projectile)
+			projectile.position = self.position
 			shoot_cooldown_current = 0
 		else:
 			shoot_cooldown_current += delta

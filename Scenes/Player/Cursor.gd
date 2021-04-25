@@ -51,9 +51,12 @@ func update():
 	update_mouse_positions()
 	update_mouse_image()
 	var click = Input.is_action_just_pressed('click')
+	var right_click = Input.is_action_just_pressed("right_click")
 	if click:
+		player.use_item()
+		# elif cursorType == CursorTypes.ATTACK:
+		# 	if targetedEnemy.has_method('_on_hit'):
+		# 		targetedEnemy.call('_on_hit', player.damage)
+	if right_click:
 		if cursorType == CursorTypes.MINE:
 			tilemap.mine(tilePosition)
-		elif cursorType == CursorTypes.ATTACK:
-			if targetedEnemy.has_method('_on_hit'):
-				targetedEnemy.call('_on_hit', player.damage)

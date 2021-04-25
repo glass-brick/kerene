@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Level/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -8,11 +8,10 @@
 [ext_resource path="res://Scenes/Level/TileMap.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/Monsters/Rat.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Items/GenericItem.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Items/BasicAttack.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/Items/GenericItemScript.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/Monsters/ShootyThing.tscn" type="PackedScene" id=11]
 
-[node name="Node2D" type="Node2D"]
+[node name="Level" type="Node2D"]
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -26,9 +25,8 @@ script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 281.283, 95.5913 )
-basic_item = ExtResource( 9 )
-hud_path = NodePath("../HUD")
-tilemap_path = NodePath("../Node2D/TileMap")
+hud_path = NodePath("../../Level/HUD")
+tilemap_path = NodePath("../../Level/Node2D/TileMap")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 0.71701, 6.4087 )
@@ -56,5 +54,5 @@ position = Vector2( 513, 92 )
 weapon_script = ExtResource( 10 )
 
 [node name="ShootyThing" parent="." instance=ExtResource( 11 )]
-position = Vector2( 182.25, 102.5 )
+position = Vector2( 168.076, 102.5 )
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

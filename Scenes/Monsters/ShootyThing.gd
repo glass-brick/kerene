@@ -65,6 +65,7 @@ func _on_attacking_start(_meta):
 
 func _on_dead_start(_meta):
 	$AnimatedSprite.play('death')
+	$AudioDeath.play()
 	$CleanBody.start()
 	# only collide with the world
 	collision_mask = 1
@@ -73,6 +74,7 @@ func _on_dead_start(_meta):
 
 func _on_hit_start(attacker):
 	$AnimatedSprite.play('hit')
+	$AudioHit.play()
 	var attack_direction = attacker.global_position - global_position
 
 

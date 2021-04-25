@@ -24,4 +24,5 @@ func _on_Area2D_body_entered(body):
 		self.queue_free()
 	if body.name == 'TileMap':
 		self.queue_free()
-		
+
+

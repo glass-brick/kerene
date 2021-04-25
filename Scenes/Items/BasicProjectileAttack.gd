@@ -7,6 +7,7 @@ var item_owner = false
 var projectileBase = preload("res://Scenes/Monsters/PlayerProjectile.tscn")
 
 func use():
+	item_owner.play_shoot_audio()
 	var target = item_owner.get_global_mouse_position()
 	self.fire_projectile_in_dir((target - item_owner.position).normalized())
 

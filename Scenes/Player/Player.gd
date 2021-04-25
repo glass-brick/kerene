@@ -120,7 +120,6 @@ func _physics_process(delta):
 	if invencibility:
 		invencibility_counter += delta
 		shader_timer += delta*blinking_speed
-		print(shader_timer)
 		var mat = $AnimatedSprite.get_material()
 		mat.set_shader_param("timer",shader_timer)
 		if invencibility_counter > self.invencibility_time:
@@ -135,6 +134,7 @@ func _physics_process(delta):
 func _on_hit(damageTaken):
 	if not invencibility:
 		self.health -= damageTaken
+		self.play_random_hit_audio()
 		if health <= 0:
 			emit_signal('player_died')
 			hud.player_is_dead()
@@ -146,7 +146,22 @@ func _on_hit(damageTaken):
 			# Aca iria la animacion de la muerte si tuvieramos
 		self.invencibility = true
 		self.hud.update_health(self.health)
+		
+func play_random_hit_audio():
+	var audio_choice = rand_range(1,4)
+	if audio_choice < 2:
+		$Audio1.play()
+	elif audio_choice < 3:
+		$Audio2.play()
+	else:
+		$Audio3.play()
+		
 
+func play_cut_audio():
+	$AudioCut.play()
+
+func play_shoot_audio():
+	$AudioShoot.play()
 
 func _on_RestartAfterDeath_timeout():
 	get_tree().reload_current_scene()
@@ -173,3 +188,4 @@ func spend_active_item():
 		self.items[current_item_name]["amount"] -= 1
 		if self.items[current_item_name]["amount"] < 1:
 			active_item = self.items["basic_attack"]["object"]
+

@@ -12,6 +12,7 @@ export (int) var damage = 10
 export (bool) var jump_damage_activated = false
 export (int) var invincibility_time = 2
 export (float) var blinking_speed = 0.05
+export (int) var dig_length = 100
 
 export (Script) var basic_item = load("res://Scenes/Items/BasicAttack.gd")
 export (Script) var basic_item_projectile = load("res://Scenes/Items/BasicProjectileAttack.gd")

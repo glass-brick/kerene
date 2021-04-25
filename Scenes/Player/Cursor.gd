@@ -31,7 +31,7 @@ func update_mouse_positions():
 
 		elif target == tilemap:
 			tile_position = tilemap.world_to_map(mouse_position)
-			if tilemap.is_mineable(tile_position):
+			if tilemap.is_mineable(tile_position) and (player.global_position - mouse_position).length() < player.dig_length:
 				cursorType = CursorTypes.MINE
 				return
 
@@ -39,7 +39,7 @@ func update_mouse_positions():
 
 
 func update_mouse_image():
-	if cursorType == CursorTypes.MINE:
+	if cursorType == CursorTypes.MINE :
 		Input.set_custom_mouse_cursor(pick)
 	elif cursorType == CursorTypes.ATTACK:
 		Input.set_custom_mouse_cursor(sword)

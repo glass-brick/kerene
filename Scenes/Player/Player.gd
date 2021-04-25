@@ -164,6 +164,14 @@ func play_random_hit_audio():
 	else:
 		$Audio3.play()
 
+func play_mine_sound():
+	var audio_choice = rand_range(1, 4)
+	if audio_choice < 2:
+		$AudioDig1.play()
+	elif audio_choice < 3:
+		$AudioDig2.play()
+	else:
+		$AudioDig3.play()
 
 func play_cut_audio():
 	$AudioCut.play()

@@ -56,4 +56,4 @@ func update():
 		player.use_item()
 	if right_click:
 		if cursorType == CursorTypes.MINE:
-			tilemap.mine(tilePosition)
+			player.mine(tilePosition)

@@ -193,6 +193,11 @@ func use_item():
 		current_state = PlayerStates.USE
 
 
+func mine(tilePosition):
+	tilemap.mine(tilePosition)
+	current_state = PlayerStates.USE
+
+
 func _on_AnimatedSprite_animation_finished():
 	if current_state == PlayerStates.USE or current_state == PlayerStates.HIT:
 		current_state = PlayerStates.UNLOCKED

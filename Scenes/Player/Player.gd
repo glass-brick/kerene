@@ -177,7 +177,6 @@ func get_stair_input():
 
 
 func _physics_process(delta):
-	print(current_state)
 	if not current_state == PlayerStates.DEAD:
 		cursor.update()
 		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:
@@ -202,7 +201,6 @@ func _on_hit(damageTaken, attacker):
 		if health > 0:
 			current_state = PlayerStates.HIT
 		else:
-			emit_signal('player_died')
 			hud.player_is_dead()
 			$RestartAfterDeath.start()
 			self.current_state = PlayerStates.DEAD
@@ -240,7 +238,7 @@ func play_shoot_audio():
 
 
 func _on_RestartAfterDeath_timeout():
-	get_tree().reload_current_scene()
+	emit_signal('player_died')
 
 
 func pickup_item(item):
@@ -275,7 +273,8 @@ func spend_active_item():
 		self.items[current_item_name]["amount"] -= 1
 		if self.items[current_item_name]["amount"] < 1:
 			active_item = "basic_attack"
-			
+
+
 func _on_heal(amount):
 	self.health += amount
 	self.hud.update_health(self.health)

@@ -104,5 +104,15 @@ motion_scale = Vector2( 1, 0.2 )
 motion_offset = Vector2( 0, 400 )
 
 [node name="background4" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2( 0, -0.89093 )
 texture = ExtResource( 5 )
 centered = false
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = 160.328
+margin_top = 3.1748
+margin_right = 200.328
+margin_bottom = 43.1748
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -22,7 +22,6 @@ func _ready():
 
 func _on_idle_start(_meta):
 	$AnimatedSprite.play('idle')
-	velocity.x = 0
 
 
 func _process_idle(_delta, _meta):
@@ -56,8 +55,8 @@ func _process_attacking(delta, target):
 
 
 func _process_dead(delta, meta):
-	velocity.y += gravity * delta
-	velocity = move_and_slide(velocity, Vector2(0, 1))
+	velocity += Vector2(0, 1).rotated(rotation) * gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0, 1).rotated(rotation))
 
 
 func _on_attacking_start(_meta):
@@ -75,8 +74,6 @@ func _on_dead_start(_meta):
 func _on_hit_start(attacker):
 	$AnimatedSprite.play('hit')
 	var attack_direction = attacker.global_position - global_position
-	# velocity.x = -50 if attack_direction.x > 0 else 50
-	# velocity.y = -100
 
 
 func _on_hit(damageTaken, attacker):

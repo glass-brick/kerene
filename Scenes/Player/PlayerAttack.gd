@@ -6,16 +6,17 @@ var damage
 
 
 func attack_right(dmg):
-	damage = dmg
 	scale.x = 1
-	sprite.frame = 0
-	sprite.show()
-	sprite.play()
+	attack(dmg)
 
 
 func attack_left(dmg):
-	damage = dmg
 	scale.x = -1
+	attack(dmg)
+
+
+func attack(dmg):
+	damage = dmg
 	sprite.frame = 0
 	sprite.show()
 	sprite.play()

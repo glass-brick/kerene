@@ -10,7 +10,7 @@ export (int) var gravity = 1200
 export (int) var health = 100
 export (int) var damage = 10
 export (bool) var jump_damage_activated = false
-export (int) var invencibility_time = 5
+export (int) var invincibility_time = 5
 export (float) var blinking_speed = 0.5
 
 export (Script) var basic_item = load("res://Scenes/Items/BasicAttack.gd")
@@ -24,8 +24,8 @@ var jumping = false
 var is_dead = false
 var shader_timer = 0
 var blinking = false
-var invencibility = false
-var invencibility_counter = 0
+var invincibility = false
+var invincibility_counter = 0
 
 onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
@@ -103,11 +103,27 @@ func get_animation():
 	sprite.play(new_animation)
 
 
+func process_invincibility(delta):
+	if invincibility:
+		invincibility_counter += delta
+		shader_timer += delta * blinking_speed
+		var mat = sprite.get_material()
+		mat.set_shader_param("timer", shader_timer)
+		if invincibility_counter > self.invincibility_time:
+			invincibility = false
+	else:
+		invincibility_counter = 0
+		shader_timer = 0
+		var mat = sprite.get_material()
+		mat.set_shader_param("timer", shader_timer)
+
+
 func _physics_process(delta):
 	if not is_dead:
 		cursor.update()
 		get_input()
 		get_animation()
+		process_invincibility(delta)
 
 		velocity.y += gravity * delta
 
@@ -116,34 +132,20 @@ func _physics_process(delta):
 
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 
-	if invencibility:
-		invencibility_counter += delta
-		shader_timer += delta * blinking_speed
-		var mat = sprite.get_material()
-		mat.set_shader_param("timer", shader_timer)
-		if invencibility_counter > self.invencibility_time:
-			invencibility = false
-	else:
-		invencibility_counter = 0
-		shader_timer = 0
-		var mat = sprite.get_material()
-		mat.set_shader_param("timer", shader_timer)
-
 
 func _on_hit(damageTaken):
-	if not invencibility:
-		self.health -= damageTaken
+	if not invincibility and not is_dead:
+		self.health = max(self.health - damageTaken, 0)
 		self.play_random_hit_audio()
-		if health <= 0:
+		if health == 0:
 			emit_signal('player_died')
 			hud.player_is_dead()
-			if not is_dead:
-				$RestartAfterDeath.start()
+			$RestartAfterDeath.start()
 			self.is_dead = true
 			self.velocity.x = 0
 			self.velocity.y = 0
 			# Aca iria la animacion de la muerte si tuvieramos
-		self.invencibility = true
+		self.invincibility = true
 		self.hud.update_health(self.health)
 
 

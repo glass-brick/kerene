@@ -25,7 +25,7 @@ tile_data = PoolIntArray( -327681, 1, 327680, -393152, 1, 327680, -262145, 1, 39
 script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 218.181, 102.32 )
+position = Vector2( 208, 120 )
 max_speed = 140
 jump_speed = -320
 hud_path = NodePath("../../Level/HUD")
@@ -35,6 +35,7 @@ tilemap_path = NodePath("../../Level/Node2D/TileMap")
 position = Vector2( 0.71701, 6.4087 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
+process_mode = 0
 limit_left = 0
 limit_right = 1024
 script = ExtResource( 1 )

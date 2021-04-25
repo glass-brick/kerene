@@ -44,43 +44,43 @@ region = Rect2( 0, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 22, 22, 22 )
+region = Rect2( 66, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 22, 22, 22 )
+region = Rect2( 44, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 22, 22, 22 )
+region = Rect2( 66, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 22, 22, 22 )
+region = Rect2( 22, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 88, 22, 22, 22 )
+region = Rect2( 0, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 110, 22, 22, 22 )
+region = Rect2( 22, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 44, 22, 22 )
+region = Rect2( 44, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 44, 22, 22 )
+region = Rect2( 66, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 44, 22, 22 )
+region = Rect2( 88, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 66, 22, 22 )
+region = Rect2( 110, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
@@ -106,29 +106,29 @@ animations = [ {
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
-"name": "interact",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 14 ) ],
-"loop": false,
-"name": "fall",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 15 ), SubResource( 16 ) ],
-"loop": false,
-"name": "hit",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 17 ) ],
+"frames": [ SubResource( 8 ) ],
 "loop": true,
 "name": "death",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": false,
+"name": "hit",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": false,
+"name": "fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
 "name": "walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "interact",
 "speed": 10.0
 } ]
 
@@ -177,8 +177,8 @@ material = SubResource( 1 )
 position = Vector2( 1.02752, 1.17876 )
 scale = Vector2( 0.851181, 0.714764 )
 frames = SubResource( 21 )
-animation = "idle"
-frame = 3
+animation = "interact"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

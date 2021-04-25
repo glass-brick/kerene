@@ -9,6 +9,7 @@ export (int) var jump_damage = 10
 export (int) var gravity = 1200
 export (int) var health = 100
 export (int) var damage = 10
+export (bool) var jump_damage_activated = false
 
 export (Script) var basic_item
 
@@ -57,7 +58,8 @@ func get_input():
 	if jump and is_on_floor():
 		jumping = true
 		velocity.y = jump_speed
-		_on_hit(self.jump_damage)
+		if jump_damage_activated:
+			_on_hit(self.jump_damage)
 
 	if change_item:
 		self.active_item = self.items[self.items.keys()[-1]]["object"]

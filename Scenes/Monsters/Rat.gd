@@ -7,8 +7,10 @@ export (int) var jump_speed = -300
 export (int) var damage = 10
 export (int) var health = 30
 
-enum States { MOVING_LEFT, MOVING_RIGHT, HIT, ATTACKING, DEAD }
+enum States { MOVING, MOVING, HIT, ATTACKING, DEAD }
+enum Sides { LEFT, RIGHT }
 var currentState
+var currentSide
 var velocity = Vector2(0, 0)
 onready var detection_area = $DetectionArea
 var state_time = 0
@@ -19,17 +21,16 @@ func _ready():
 
 
 func set_random_move_state():
+	currentState = States.MOVING
 	$AnimatedSprite.play('run')
 	if randi() % 2 == 1:
-		currentState = States.MOVING_LEFT
+		currentSide = Sides.LEFT
 	else:
-		currentState = States.MOVING_RIGHT
+		currentSide = Sides.RIGHT
 
 
-func _physics_process(delta):
-	velocity.y += gravity * delta
-
-	if currentState == States.MOVING_LEFT or currentState == States.MOVING_RIGHT:
+func detect_attack():
+	if currentState == States.MOVING:
 		var detectedEntities = detection_area.get_overlapping_bodies()
 		if not detectedEntities.empty():
 			var player = detectedEntities[0]
@@ -40,23 +41,20 @@ func _physics_process(delta):
 				currentState = States.ATTACKING
 				$AnimatedSprite.play('attack')
 
-	if currentState == States.MOVING_LEFT:
-		$AnimatedSprite.flip_h = true
-		detection_area.scale.x = -1
-		velocity = move_and_slide(Vector2(-speed, velocity.y), Vector2(0, 1))
+
+func process_current_state():
+	$AnimatedSprite.flip_h = currentSide == Sides.LEFT
+	var currentSpeed = speed if currentSide == Sides.RIGHT else -speed
+	if currentState == States.MOVING:
+		detection_area.scale.x = 1 if currentSide == Sides.RIGHT else -1
+		velocity = move_and_slide(Vector2(currentSpeed, velocity.y), Vector2(0, 1))
 		if is_on_wall():
-			currentState = States.MOVING_RIGHT
-	elif currentState == States.MOVING_RIGHT:
-		$AnimatedSprite.flip_h = false
-		detection_area.scale.x = 1
-		velocity = move_and_slide(Vector2(speed, velocity.y), Vector2(0, 1))
-		if is_on_wall():
-			currentState = States.MOVING_LEFT
+			currentSide = Sides.LEFT if currentSide == Sides.RIGHT else Sides.RIGHT
 	elif currentState == States.ATTACKING:
 		state_time += 1
-		velocity = move_and_slide(velocity, Vector2(0, 1))
+		velocity = move_and_slide(Vector2(currentSpeed, velocity.y), Vector2(0, 1))
 		var slide_count = get_slide_count()
-		if slide_count:	
+		if slide_count:
 			var collision = get_slide_collision(slide_count - 1)
 			if collision.collider.has_method('_on_hit'):
 				collision.collider.call('_on_hit', damage)
@@ -65,9 +63,14 @@ func _physics_process(delta):
 			set_random_move_state()
 
 
+func _physics_process(delta):
+	detect_attack()
+	process_current_state()
+	velocity.y += gravity * delta
+
+
 func _on_hit(damageTaken):
-	if not currentState == States.HIT:
-		
+	if not (currentState == States.HIT or currentState == States.DEAD):
 		self.health -= damageTaken
 		if health > 0:
 			$AudioHit.play()

@@ -55,18 +55,15 @@ frames = SubResource( 5 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -0.280613 )
 shape = SubResource( 6 )
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
 position = Vector2( 0.0356903, -0.459076 )
 collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-visible = false
 position = Vector2( 0.0359879, 0.8771 )
 shape = SubResource( 7 )
 

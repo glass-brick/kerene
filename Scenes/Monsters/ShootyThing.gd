@@ -43,6 +43,7 @@ func _process_attacking(delta, target):
 
 	if state_time == 0 or shoot_cooldown_current > self.shoot_cooldown:
 		$AnimatedSprite.play('attack')
+		$AudioShoot.play()
 		var projectile = Projectile.instance()
 		projectile.direction = (difference).normalized()
 		projectile.speed = projectile_speed
@@ -60,6 +61,7 @@ func _process_dead(delta, meta):
 
 
 func _on_attacking_start(_meta):
+	
 	$AnimatedSprite.play('alert')
 
 

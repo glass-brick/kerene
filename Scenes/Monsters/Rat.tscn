@@ -167,6 +167,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+visible = false
 position = Vector2( 44.7623, -30.9893 )
 shape = SubResource( 29 )
 one_way_collision_margin = 0.0

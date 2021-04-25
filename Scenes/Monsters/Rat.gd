@@ -26,11 +26,10 @@ func _on_flip_side(new_side):
 
 
 func _process_moving(_delta, _meta):
-	var current_speed = speed if get_current_side() == Sides.RIGHT else -speed
-	velocity = move_and_slide(Vector2(current_speed, velocity.y), Vector2(0, 1))
 	if is_on_wall():
 		flip_side()
-	detect_attack()
+		detect_attack()
+	velocity.x = speed if get_current_side() == Sides.RIGHT else -speed
 
 
 func detect_attack():
@@ -49,42 +48,37 @@ func _on_attacking_start(_meta):
 
 
 func _process_attacking(_delta, _meta):
-	var current_speed = speed if get_current_side() == Sides.RIGHT else -speed
+	velocity.x = speed if get_current_side() == Sides.RIGHT else -speed
 	state_time += 1
-	velocity = move_and_slide(Vector2(current_speed, velocity.y), Vector2(0, 1))
-	print(current_speed, velocity)
 	var slide_count = get_slide_count()
 	if slide_count:
 		var collision = get_slide_collision(slide_count - 1)
 		if collision.collider.has_method('_on_hit'):
-			collision.collider.call('_on_hit', damage)
+			collision.collider.call('_on_hit', damage, self)
 	if state_time > attack_time_limit:
 		state_time = 0
 		set_monster_state(MonsterStates.MOVING)
 
 
-func _process_hit(_delta, _meta):
-	velocity = move_and_slide(Vector2(0, velocity.y), Vector2(0, 1))
-
-
-func _process_dead(_delta, _meta):
-	velocity = move_and_slide(Vector2(0, velocity.y), Vector2(0, 1))
-
-
 func _common_physics_process(delta):
-	print(get_monster_state())
 	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0, 1))
 
 
-func _on_hit(damageTaken):
+func _on_hit(damageTaken, attacker):
 	if not (get_monster_state() == MonsterStates.HIT or get_monster_state() == MonsterStates.DEAD):
 		health = max(0, health - damageTaken)
-		set_monster_state(MonsterStates.HIT if health > 0 else MonsterStates.DEAD)
+		set_monster_state_with_meta(
+			MonsterStates.HIT if health > 0 else MonsterStates.DEAD, attacker
+		)
 
 
-func _on_hit_start(_meta):
+func _on_hit_start(attacker):
 	$AudioHit.play()
 	$AnimatedSprite.play('hit')
+	var attackDirection = attacker.global_position - global_position
+	velocity.x = -50 if attackDirection.x > 0 else 50
+	velocity.y = -100
 
 
 func _on_dead_start(_meta):

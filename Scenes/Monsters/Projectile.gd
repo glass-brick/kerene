@@ -21,7 +21,7 @@ func _physics_process(delta):
 
 func _on_Area2D_body_entered(body):
 	if body.has_method('_on_hit'):
-		body._on_hit(self.damage)
+		body._on_hit(self.damage, self)
 		self.queue_free()
 	if body.name == 'TileMap':
 		self.queue_free()

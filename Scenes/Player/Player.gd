@@ -10,8 +10,8 @@ export (int) var gravity = 1200
 export (int) var health = 100
 export (int) var damage = 10
 export (bool) var jump_damage_activated = false
-export (int) var invincibility_time = 5
-export (float) var blinking_speed = 0.5
+export (int) var invincibility_time = 2
+export (float) var blinking_speed = 0.05
 
 export (Script) var basic_item = load("res://Scenes/Items/BasicAttack.gd")
 export (Script) var basic_item_projectile = load("res://Scenes/Items/BasicProjectileAttack.gd")
@@ -71,7 +71,8 @@ func get_input():
 		jumping = true
 		velocity.y = jump_speed
 		if jump_damage_activated:
-			_on_hit(self.jump_damage)
+			self.health = max(self.health - jump_damage, 0)
+			self.hud.update_health(self.health)
 
 	get_item_input()
 	if use:
@@ -133,7 +134,7 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
-func _on_hit(damageTaken):
+func _on_hit(damageTaken, _other):
 	if not invincibility and not is_dead:
 		self.health = max(self.health - damageTaken, 0)
 		self.play_random_hit_audio()

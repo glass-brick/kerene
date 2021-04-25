@@ -61,6 +61,7 @@ func _common_physics_process(_delta):
 
 
 func _physics_process(delta):
+	_common_physics_process(delta)
 	if current_state == MonsterStates.MOVING:
 		_process_moving(delta, current_metadata)
 	elif current_state == MonsterStates.IDLE:
@@ -71,7 +72,8 @@ func _physics_process(delta):
 		_process_attacking(delta, current_metadata)
 	elif current_state == MonsterStates.DEAD:
 		_process_dead(delta, current_metadata)
-	_common_physics_process(delta)
+	else:
+		print('UNEXPECTED STATE:', current_state)
 
 
 func trigger_state_change():
@@ -85,6 +87,8 @@ func trigger_state_change():
 		_on_attacking_start(current_metadata)
 	elif current_state == MonsterStates.DEAD:
 		_on_dead_start(current_metadata)
+	else:
+		print('UNEXPECTED STATE:', current_state)
 
 
 func set_monster_state(new_state):

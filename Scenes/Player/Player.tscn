@@ -15,7 +15,7 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
-shader_param/modulate = Color( 1, 1, 1, 1 )
+shader_param/modulate = Color( 1, 1, 1, 0 )
 shader_param/timer = null
 
 [sub_resource type="AtlasTexture" id=2]
@@ -40,23 +40,23 @@ region = Rect2( 96, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 160, 64, 32, 32 )
+region = Rect2( 192, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 288, 64, 32, 32 )
+region = Rect2( 160, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 320, 64, 32, 32 )
+region = Rect2( 288, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 352, 64, 32, 32 )
+region = Rect2( 320, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 192, 64, 32, 32 )
+region = Rect2( 352, 64, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=12]
 animations = [ {
@@ -72,17 +72,17 @@ animations = [ {
 }, {
 "frames": [ SubResource( 7 ) ],
 "loop": false,
+"name": "fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": false,
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
 "loop": true,
 "name": "interact",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 11 ) ],
-"loop": false,
-"name": "fall",
 "speed": 10.0
 } ]
 

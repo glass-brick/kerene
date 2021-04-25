@@ -4,7 +4,7 @@ export (int) var gravity = 1200
 export (int) var attack_time_limit = 60
 export (int) var jump_speed = -300
 export (int) var damage = 10
-export (int) var health = 10
+export (int) var health = 20
 export (int) var shoot_cooldown = 5
 export (int) var projectile_speed = 100
 export (PackedScene) var Projectile
@@ -13,6 +13,7 @@ var shoot_cooldown_current = 0
 
 onready var detection_area = $DetectionArea
 var state_time = 0
+var velocity = Vector2(0, 0)
 
 
 func _ready():
@@ -21,6 +22,7 @@ func _ready():
 
 func _on_idle_start(_meta):
 	$AnimatedSprite.play('idle')
+	velocity.x = 0
 
 
 func _process_idle(_delta, _meta):
@@ -34,13 +36,15 @@ func _process_idle(_delta, _meta):
 
 
 func _process_attacking(delta, target):
+	var detectedEntities = detection_area.get_overlapping_bodies()
+	if detectedEntities.empty():
+		set_monster_state(MonsterStates.IDLE)
+	var difference = target.position - self.position
+	$AnimatedSprite.flip_h = difference.x < 0
+
 	if state_time == 0 or shoot_cooldown_current > self.shoot_cooldown:
 		$AnimatedSprite.play('attack')
-		var detectedEntities = detection_area.get_overlapping_bodies()
-		if detectedEntities.empty():
-			set_monster_state(MonsterStates.IDLE)
 		var projectile = Projectile.instance()
-		var difference = target.position - self.position
 		projectile.direction = (difference).normalized()
 		projectile.speed = projectile_speed
 		get_tree().get_root().get_node("Level").add_child(projectile)
@@ -51,6 +55,15 @@ func _process_attacking(delta, target):
 	state_time += delta
 
 
+func _common_physics_process(delta):
+	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0, 1))
+
+
+func _on_attacking_start(_meta):
+	$AnimatedSprite.play('alert')
+
+
 func _on_dead_start(_meta):
 	$AnimatedSprite.play('death')
 	$CleanBody.start()
@@ -59,14 +72,19 @@ func _on_dead_start(_meta):
 	collision_layer = 0
 
 
-func _on_hit_start(_meta):
+func _on_hit_start(attacker):
 	$AnimatedSprite.play('hit')
+	var attackDirection = attacker.global_position - global_position
+	velocity.x = -50 if attackDirection.x > 0 else 50
+	velocity.y = -100
 
 
-func _on_hit(damageTaken):
+func _on_hit(damageTaken, attacker):
 	if not (get_monster_state() == MonsterStates.HIT or get_monster_state() == MonsterStates.DEAD):
 		health = max(0, health - damageTaken)
-		set_monster_state(MonsterStates.HIT if health > 0 else MonsterStates.DEAD)
+		set_monster_state_with_meta(
+			MonsterStates.HIT if health > 0 else MonsterStates.DEAD, attacker
+		)
 
 
 func _on_CleanBody_timeout():
@@ -74,5 +92,7 @@ func _on_CleanBody_timeout():
 
 
 func _on_AnimatedSprite_animation_finished():
-	if get_monster_state() != MonsterStates.DEAD:
-		$AnimatedSprite.play('idle')
+	if get_monster_state() == MonsterStates.ATTACKING:
+		$AnimatedSprite.play('alert')
+	if get_monster_state() == MonsterStates.HIT:
+		set_monster_state(MonsterStates.IDLE)

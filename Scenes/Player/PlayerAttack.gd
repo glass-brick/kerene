@@ -30,7 +30,7 @@ func _physics_process(_delta):
 
 			if target.collision_layer == 2:
 				if target.has_method('_on_hit'):
-					target.call('_on_hit', damage)
+					target.call('_on_hit', damage, self)
 
 
 func _on_AttackSprite_animation_finished():

@@ -74,6 +74,13 @@ func get_input():
 			self.health = max(self.health - jump_damage, 0)
 			self.hud.update_health(self.health)
 
+	if velocity.x and is_on_floor():
+		if not $AudioFootsteps.playing:
+			$AudioFootsteps.play()
+	else:
+		if $AudioFootsteps.playing:
+			$AudioFootsteps.stop()
+
 	get_item_input()
 	if use:
 		self.use_item()

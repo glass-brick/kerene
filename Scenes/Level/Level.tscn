@@ -27,7 +27,14 @@ script = ExtResource( 6 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 208, 120 )
 max_speed = 140
+acceleration = 50
 jump_speed = -320
+jump_damage = 10
+gravity = 1200
+health = 100
+damage = 10
+jump_damage_activated = false
+invincibility_time = 2
 hud_path = NodePath("../../Level/HUD")
 tilemap_path = NodePath("../../Level/Node2D/TileMap")
 
@@ -55,7 +62,7 @@ weapon_script = ExtResource( 10 )
 position = Vector2( 198.443, 196.294 )
 
 [node name="Rat" parent="." instance=ExtResource( 7 )]
-position = Vector2( 19.7622, 110.308 )
+position = Vector2( 171.295, 221.432 )
 
 [node name="ShootyThing2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 73.1278, 309.376 )

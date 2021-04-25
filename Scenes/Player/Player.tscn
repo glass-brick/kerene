@@ -26,35 +26,35 @@ region = Rect2( 192, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 64, 32, 32 )
+region = Rect2( 288, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 64, 32, 32 )
+region = Rect2( 320, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 64, 64, 32, 32 )
+region = Rect2( 352, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 96, 64, 32, 32 )
+region = Rect2( 160, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 160, 64, 32, 32 )
+region = Rect2( 0, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 288, 64, 32, 32 )
+region = Rect2( 32, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 320, 64, 32, 32 )
+region = Rect2( 64, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 352, 64, 32, 32 )
+region = Rect2( 96, 64, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=12]
 animations = [ {
@@ -68,24 +68,24 @@ animations = [ {
 "name": "fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
-"name": "walk",
+"name": "interact",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 7 ) ],
 "loop": false,
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
 "loop": true,
-"name": "interact",
+"name": "walk",
 "speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 5.5, 10 )
+extents = Vector2( 5.5, 5.63477 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
@@ -100,12 +100,14 @@ basic_item_projectile = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
+position = Vector2( 1.02752, 1.17876 )
+scale = Vector2( 0.851181, 0.714764 )
 frames = SubResource( 12 )
 animation = "idle"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, 6 )
+position = Vector2( 0.815336, 4.63354 )
 shape = SubResource( 13 )
 
 [node name="Audio1" type="AudioStreamPlayer" parent="."]

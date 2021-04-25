@@ -27,14 +27,7 @@ script = ExtResource( 6 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 208, 120 )
 max_speed = 140
-acceleration = 50
 jump_speed = -320
-jump_damage = 10
-gravity = 1200
-health = 100
-damage = 10
-jump_damage_activated = false
-invincibility_time = 2
 hud_path = NodePath("../../Level/HUD")
 tilemap_path = NodePath("../../Level/Node2D/TileMap")
 

@@ -52,15 +52,13 @@ position = Vector2( 513, 92 )
 weapon_script = ExtResource( 10 )
 
 [node name="ShootyThing" parent="." instance=ExtResource( 11 )]
-position = Vector2( 200, 202 )
-rotation = 3.14159
+position = Vector2( 198.443, 196.294 )
 
 [node name="Rat" parent="." instance=ExtResource( 7 )]
 position = Vector2( 211.142, 223.677 )
 
 [node name="ShootyThing2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 73.1278, 309.376 )
-rotation = 1.5708
 
 [node name="ShootyThing3" parent="." instance=ExtResource( 11 )]
 position = Vector2( 144.075, 294.628 )

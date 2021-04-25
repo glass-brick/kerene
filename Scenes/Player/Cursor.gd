@@ -57,3 +57,4 @@ func update():
 	if right_click:
 		if cursorType == CursorTypes.MINE:
 			player.mine(tilePosition)
+			player.play_mine_sound()

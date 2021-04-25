@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/swoosh.png-c1695264b7f3a42c7141cb2f14901c2b.stex"
+path="res://.import/Slime_Spiked_Angry_Full.png-f57050c23b6a2b3da40fda1ff3a91aad.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/swoosh.png"
-dest_files=[ "res://.import/swoosh.png-c1695264b7f3a42c7141cb2f14901c2b.stex" ]
+source_file="res://Sprites/BatCrabRatSlime/Slime/Slime_Spiked_Angry_Full.png"
+dest_files=[ "res://.import/Slime_Spiked_Angry_Full.png-f57050c23b6a2b3da40fda1ff3a91aad.stex" ]
 
 [params]
 

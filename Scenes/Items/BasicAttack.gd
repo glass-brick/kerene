@@ -2,17 +2,16 @@ var item_name = "BasicAttack"
 
 var item_owner = false
 
+
+func _init(player):
+	item_owner = player
+
+
 func use():
-	# Copy paste furioso del codigo en cursor
 	item_owner.play_cut_audio()
-	var target = item_owner.get_global_mouse_position()
-	var space_state = item_owner.get_world_2d().direct_space_state
+	var is_left_side = item_owner.sprite.flip_h
 
-	var intersections = space_state.intersect_point(target, 1, [item_owner, item_owner.tilemap])
-	if not intersections.empty():
-		var target_thing = intersections[0].collider
-
-		if target_thing.collision_layer == 2:
-			if target_thing.has_method('_on_hit'):
-				target_thing.call('_on_hit', item_owner.damage)
-
+	if is_left_side:
+		item_owner.player_attack.attack_left(10)
+	else:
+		item_owner.player_attack.attack_right(10)

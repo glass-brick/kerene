@@ -27,8 +27,8 @@ func _on_flip_side(new_side):
 
 func _process_moving(_delta, _meta):
 	if is_on_wall():
-		flip_side()
-		detect_attack()
+		if not detect_attack():
+			flip_side()
 	velocity.x = speed if get_current_side() == Sides.RIGHT else -speed
 
 
@@ -40,6 +40,8 @@ func detect_attack():
 		var result = space_state.intersect_ray(global_position, player.global_position, [self])
 		if result and result.collider == player:
 			set_monster_state(MonsterStates.ATTACKING)
+			return true
+	return false
 
 
 func _on_attacking_start(_meta):

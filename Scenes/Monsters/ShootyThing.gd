@@ -61,7 +61,7 @@ func _on_hit(damageTaken):
 			# $AnimatedSprite.play('hit')
 		else:
 			$AnimatedSprite.stop()
-			$AnimatedSprite.flip_v
+			# $AnimatedSprite.flip_v = true
 			# $AnimatedSprite.play('death')
 			currentState = States.DEAD
 			$CleanBody.start()

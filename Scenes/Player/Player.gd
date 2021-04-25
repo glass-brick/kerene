@@ -10,6 +10,8 @@ export (int) var gravity = 1200
 export (int) var health = 100
 export (int) var damage = 10
 export (bool) var jump_damage_activated = false
+export (int) var invencibility_time = 5
+export (float) var blinking_speed = 0.5
 
 export (Script) var basic_item
 export (Script) var basic_item_projectile
@@ -25,6 +27,10 @@ var is_dead = false
 var items = {}
 var tilemap
 var cursor
+var shader_timer = 0
+var blinking = false
+var invencibility = false
+var invencibility_counter = 0
 
 
 func _ready():
@@ -110,20 +116,36 @@ func _physics_process(delta):
 			jumping = false
 
 		velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+	if invencibility:
+		invencibility_counter += delta
+		shader_timer += delta*blinking_speed
+		print(shader_timer)
+		var mat = $AnimatedSprite.get_material()
+		mat.set_shader_param("timer",shader_timer)
+		if invencibility_counter > self.invencibility_time:
+			invencibility = false
+	else:
+		invencibility_counter = 0
+		shader_timer = 0
+		var mat = $AnimatedSprite.get_material()
+		mat.set_shader_param("timer",shader_timer)
 
 
 func _on_hit(damageTaken):
-	self.health -= damageTaken
-	if health <= 0:
-		emit_signal('player_died')
-		hud.player_is_dead()
-		if not is_dead:
-			$RestartAfterDeath.start()
-		self.is_dead = true
-		self.velocity.x = 0
-		self.velocity.y = 0
-		# Aca iria la animacion de la muerte si tuvieramos
-	self.hud.update_health(self.health)
+	if not invencibility:
+		self.health -= damageTaken
+		if health <= 0:
+			emit_signal('player_died')
+			hud.player_is_dead()
+			if not is_dead:
+				$RestartAfterDeath.start()
+			self.is_dead = true
+			self.velocity.x = 0
+			self.velocity.y = 0
+			# Aca iria la animacion de la muerte si tuvieramos
+		self.invencibility = true
+		self.hud.update_health(self.health)
 
 
 func _on_RestartAfterDeath_timeout():

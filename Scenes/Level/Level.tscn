@@ -25,6 +25,7 @@ script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 281.283, 95.5913 )
+blinking_speed = 20.0
 hud_path = NodePath("../../Level/HUD")
 tilemap_path = NodePath("../../Level/Node2D/TileMap")
 

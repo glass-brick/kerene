@@ -2,7 +2,7 @@ var cursor = load("res://Sprites/cursor.png")
 var sword = load("res://Sprites/sword.png")
 var pick = load("res://Sprites/pick.png")
 
-var tilePosition = null
+var tile_position = null
 var targetedEnemy = null
 enum CursorTypes { CURSOR, MINE, ATTACK }
 var cursorType = CursorTypes.CURSOR
@@ -16,11 +16,11 @@ func _init(p):
 
 
 func update_mouse_positions():
-	var mousePosition = player.get_global_mouse_position()
+	var mouse_position = player.get_global_mouse_position()
 
 	var space_state = player.get_world_2d().direct_space_state
 
-	var intersections = space_state.intersect_point(mousePosition, 1, [player, tilemap])
+	var intersections = space_state.intersect_point(mouse_position, 1, [player, tilemap])
 	if not intersections.empty():
 		var target = intersections[0].collider
 
@@ -30,8 +30,8 @@ func update_mouse_positions():
 			return
 
 		elif target == tilemap:
-			tilePosition = tilemap.world_to_map(mousePosition)
-			if tilemap.is_mineable(tilePosition):
+			tile_position = tilemap.world_to_map(mouse_position)
+			if tilemap.is_mineable(tile_position):
 				cursorType = CursorTypes.MINE
 				return
 
@@ -56,5 +56,5 @@ func update():
 		player.use_item()
 	if right_click:
 		if cursorType == CursorTypes.MINE:
-			player.mine(tilePosition)
+			player.mine(tile_position)
 			player.play_mine_sound()

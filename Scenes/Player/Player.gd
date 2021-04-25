@@ -275,3 +275,7 @@ func spend_active_item():
 		self.items[current_item_name]["amount"] -= 1
 		if self.items[current_item_name]["amount"] < 1:
 			active_item = "basic_attack"
+			
+func _on_heal(amount):
+	self.health += amount
+	self.hud.update_health(self.health)

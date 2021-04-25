@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/elPollitoKanoo.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Items/Health.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 17.8433, 16.2405 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Node2D" type="Area2D"]
+scale = Vector2( 0.4, 0.4 )
+z_index = -1
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1.25811, -7.21759 )
+frames = SubResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_Node2D_body_entered"]

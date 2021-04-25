@@ -157,6 +157,11 @@ func play_random_hit_audio():
 		$Audio3.play()
 		
 
+func play_cut_audio():
+	$AudioCut.play()
+
+func play_shoot_audio():
+	$AudioShoot.play()
 
 func _on_RestartAfterDeath_timeout():
 	get_tree().reload_current_scene()
@@ -183,3 +188,4 @@ func spend_active_item():
 		self.items[current_item_name]["amount"] -= 1
 		if self.items[current_item_name]["amount"] < 1:
 			active_item = self.items["basic_attack"]["object"]
+

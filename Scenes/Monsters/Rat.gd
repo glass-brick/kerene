@@ -56,7 +56,7 @@ func _physics_process(delta):
 		state_time += 1
 		velocity = move_and_slide(velocity, Vector2(0, 1))
 		var slide_count = get_slide_count()
-		if slide_count:
+		if slide_count:	
 			var collision = get_slide_collision(slide_count - 1)
 			if collision.collider.has_method('_on_hit'):
 				collision.collider.call('_on_hit', damage)
@@ -67,11 +67,14 @@ func _physics_process(delta):
 
 func _on_hit(damageTaken):
 	if not currentState == States.HIT:
+		
 		self.health -= damageTaken
 		if health > 0:
+			$AudioHit.play()
 			currentState = States.HIT
 			$AnimatedSprite.play('hit')
 		else:
+			$AudioDeath.play()
 			$AnimatedSprite.play('death')
 			currentState = States.DEAD
 			$CleanBody.start()

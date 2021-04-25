@@ -4,6 +4,7 @@ var item_owner = false
 
 func use():
 	# Copy paste furioso del codigo en cursor
+	item_owner.play_cut_audio()
 	var target = item_owner.get_global_mouse_position()
 	var space_state = item_owner.get_world_2d().direct_space_state
 

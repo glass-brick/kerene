@@ -36,6 +36,22 @@ margin_left = 8.0
 margin_top = 51.0
 margin_right = 146.0
 margin_bottom = 100.0
+text = "Current Item"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Label" parent="."]
+margin_left = 9.0
+margin_top = 73.0
+margin_right = 93.0
+margin_bottom = 107.0
+text = "Move: A,S
+Jump: space bar
+Left click: Use item (attack)
+Right click: Mine
+1,2,3,...: change items
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }

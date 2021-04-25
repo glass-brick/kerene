@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Sprites/BatCrabRatSlime/Slime/Slime_Spiked_Full.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Monsters/ShootyThing.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Monsters/Projectile.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=6]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 85.892
+
+[node name="ShootyThing" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 2 )
+shoot_cooldown = 2
+Projectile = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1.12247, -5.71693 )
+frames = SubResource( 5 )
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -0.280613 )
+shape = SubResource( 6 )
+
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+position = Vector2( 0.0356903, -0.459076 )
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+visible = false
+position = Vector2( 0.0359879, 0.8771 )
+shape = SubResource( 7 )
+
+[node name="CleanBody" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+[connection signal="timeout" from="CleanBody" to="." method="_on_CleanBody_timeout"]

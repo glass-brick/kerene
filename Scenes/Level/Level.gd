@@ -6,6 +6,7 @@ export (NodePath) var current_checkpoint = null
 
 func _ready():
 	randomize()
+	print(current_checkpoint)
 	if current_checkpoint != null:
 		$Player.position = get_node(current_checkpoint).position
 

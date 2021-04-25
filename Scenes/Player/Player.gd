@@ -105,7 +105,6 @@ func get_item_input():
 		active_item = "basic_attack"
 	if item2:
 		active_item = "basic_projectile_attack"
-	print(hud)
 	self.hud.update_active_item(get_active_item().item_name)
 
 
@@ -274,7 +273,8 @@ func spend_active_item():
 		self.items[current_item_name]["amount"] -= 1
 		if self.items[current_item_name]["amount"] < 1:
 			active_item = "basic_attack"
-			
+
+
 func _on_heal(amount):
 	self.health += amount
 	self.hud.update_health(self.health)

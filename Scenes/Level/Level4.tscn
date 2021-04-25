@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Level/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/Monsters/Rat.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sprites/sword_item.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/Monsters/Spikes.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Level/Checkpoint.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Monsters/ShootyThing.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Level/Level.gd" type="Script" id=12]
 
@@ -361,5 +362,8 @@ rotation = 1.54138
 [node name="Node2D35" parent="." instance=ExtResource( 9 )]
 position = Vector2( 257.458, 137.206 )
 rotation = 1.57502
+
+[node name="Checkpoint" parent="." instance=ExtResource( 10 )]
+position = Vector2( 288, -560 )
 [connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

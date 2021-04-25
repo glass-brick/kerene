@@ -9,7 +9,6 @@ var current_checkpoint = null  # modificado directamente desde Checkpoint.gd
 
 func start_current_level():
 	var level = levels[current_level_index].instance()
-	print('STARTING LEVEL', level)
 	if current_checkpoint != null:
 		level.current_checkpoint = current_checkpoint
 	add_child(level, true)
@@ -30,9 +29,10 @@ func _on_current_level_finish():
 
 
 func _on_player_lose():
+	get_tree().reload_current_scene()
 	var level = get_child(0)
-	level.queue_free()
-	call_deferred('start_current_level')
+	if current_checkpoint != null:
+		level.current_checkpoint = current_checkpoint
 
 
 func _ready():

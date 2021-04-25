@@ -48,55 +48,55 @@ region = Rect2( 0, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 66, 22, 22 )
+region = Rect2( 44, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 66, 22, 22 )
+region = Rect2( 66, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 66, 22, 22 )
+region = Rect2( 0, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 22, 22, 22 )
+region = Rect2( 22, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 22, 22, 22 )
+region = Rect2( 44, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 22, 22, 22 )
+region = Rect2( 66, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 22, 22, 22 )
+region = Rect2( 22, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 88, 22, 22, 22 )
+region = Rect2( 0, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 110, 22, 22, 22 )
+region = Rect2( 22, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 66, 22, 22 )
+region = Rect2( 44, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 44, 22, 22 )
+region = Rect2( 66, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 44, 22, 22 )
+region = Rect2( 88, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 44, 22, 22 )
+region = Rect2( 110, 22, 22, 22 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
@@ -110,29 +110,29 @@ animations = [ {
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": false,
+"name": "hit",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "interact",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 17 ) ],
+"frames": [ SubResource( 13 ) ],
 "loop": true,
 "name": "death",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 18 ) ],
+"frames": [ SubResource( 14 ) ],
 "loop": false,
 "name": "fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 19 ), SubResource( 20 ) ],
-"loop": false,
-"name": "hit",
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "walk",
 "speed": 10.0
 } ]
 
@@ -140,18 +140,22 @@ animations = [ {
 extents = Vector2( 5, 6 )
 
 [sub_resource type="AtlasTexture" id=23]
+flags = 4
 atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=24]
+flags = 4
 atlas = ExtResource( 11 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=25]
+flags = 4
 atlas = ExtResource( 11 )
 region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=26]
+flags = 4
 atlas = ExtResource( 11 )
 region = Rect2( 96, 0, 32, 32 )
 
@@ -170,8 +174,8 @@ radius = 16.2205
 collision_layer = 4
 collision_mask = 7
 script = ExtResource( 2 )
-max_speed = 200
-jump_speed = -420
+max_speed = 160
+jump_speed = -380
 blinking_speed = 20.0
 basic_item = ExtResource( 3 )
 basic_item_projectile = ExtResource( 4 )

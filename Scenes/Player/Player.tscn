@@ -176,27 +176,31 @@ basic_item_projectile = ExtResource( 4 )
 material = SubResource( 1 )
 frames = SubResource( 21 )
 animation = "interact"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5 )
+position = Vector2( 0, 4 )
 shape = SubResource( 22 )
 
 [node name="Audio1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+volume_db = -17.181
 
 [node name="Audio2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -18.175
 
 [node name="Audio3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -19.184
 
 [node name="AudioCut" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+volume_db = -19.184
 
 [node name="AudioShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+volume_db = -19.184
 
 [node name="PlayerAttack" type="Area2D" parent="."]
 position = Vector2( -0.117981, -5.19131 )

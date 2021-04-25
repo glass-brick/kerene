@@ -124,6 +124,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=24]
+extents = Vector2( 10, 5 )
 
 [sub_resource type="CircleShape2D" id=25]
 radius = 85.892
@@ -139,11 +140,10 @@ Projectile = ExtResource( 3 )
 position = Vector2( 1.12247, -5.71693 )
 frames = SubResource( 23 )
 animation = "alert"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -0.280613 )
+position = Vector2( 0, 5 )
 shape = SubResource( 24 )
 
 [node name="DetectionArea" type="Area2D" parent="."]

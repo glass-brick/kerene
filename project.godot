@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="LD 48"
-run/main_scene="res://Scenes/Level/Level.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
 [display]

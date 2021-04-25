@@ -14,7 +14,6 @@
 [ext_resource path="res://Scenes/Items/Health.tscn" type="PackedScene" id=12]
 
 [node name="Level" type="Node2D"]
-script = ExtResource( 12 )
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -130,5 +129,4 @@ position = Vector2( 560.545, 177.739 )
 
 [node name="Node2D6" parent="." instance=ExtResource( 12 )]
 position = Vector2( 182.545, 121.341 )
-[connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

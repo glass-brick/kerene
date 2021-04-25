@@ -39,7 +39,7 @@ func _process_attacking(delta, target):
 	var detectedEntities = detection_area.get_overlapping_bodies()
 	if detectedEntities.empty():
 		set_monster_state(MonsterStates.IDLE)
-	var difference = target.position - self.position
+	var difference = target.global_position - self.global_position
 	$AnimatedSprite.flip_h = difference.x < 0
 
 	if state_time == 0 or shoot_cooldown_current > self.shoot_cooldown:
@@ -48,7 +48,7 @@ func _process_attacking(delta, target):
 		projectile.direction = (difference).normalized()
 		projectile.speed = projectile_speed
 		get_tree().get_root().get_node("Level").add_child(projectile)
-		projectile.position = self.position
+		projectile.global_position = self.global_position
 		shoot_cooldown_current = 0
 	else:
 		shoot_cooldown_current += delta

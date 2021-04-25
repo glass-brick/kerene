@@ -17,6 +17,8 @@
 [ext_resource path="res://Sounds/dig3.wav" type="AudioStream" id=15]
 [ext_resource path="res://Sounds/Footsteps.wav" type="AudioStream" id=16]
 
+
+
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
 shader_param/modulate = Color( 1, 1, 1, 0 )
@@ -92,11 +94,11 @@ region = Rect2( 66, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 44, 22, 22 )
+region = Rect2( 66, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 44, 22, 22 )
+region = Rect2( 22, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 1 )
@@ -183,8 +185,8 @@ radius = 16.2205
 collision_layer = 4
 collision_mask = 7
 script = ExtResource( 2 )
-max_speed = 200
-jump_speed = -420
+max_speed = 160
+jump_speed = -300
 blinking_speed = 20.0
 basic_item = ExtResource( 3 )
 basic_item_projectile = ExtResource( 4 )

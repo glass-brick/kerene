@@ -129,19 +129,21 @@ animations = [ {
 extents = Vector2( 10.6701, 8.69134 )
 
 [sub_resource type="CircleShape2D" id=25]
-radius = 85.892
+radius = 225.506
 
 [node name="ShootyThing" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
 shoot_cooldown = 2
+projectile_speed = 175
 Projectile = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 1.12247, -5.71693 )
 frames = SubResource( 23 )
 animation = "alert"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

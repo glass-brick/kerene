@@ -74,8 +74,8 @@ func _on_dead_start(_meta):
 
 func _on_hit_start(attacker):
 	$AnimatedSprite.play('hit')
-	var attackDirection = attacker.global_position - global_position
-	velocity.x = -50 if attackDirection.x > 0 else 50
+	var attack_direction = attacker.global_position - global_position
+	velocity.x = -50 if attack_direction.x > 0 else 50
 	velocity.y = -100
 
 

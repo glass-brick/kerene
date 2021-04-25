@@ -76,8 +76,8 @@ func _on_hit(damageTaken, attacker):
 func _on_hit_start(attacker):
 	$AudioHit.play()
 	$AnimatedSprite.play('hit')
-	var attackDirection = attacker.global_position - global_position
-	velocity.x = -50 if attackDirection.x > 0 else 50
+	var attack_direction = attacker.global_position - global_position
+	velocity.x = -50 if attack_direction.x > 0 else 50
 	velocity.y = -100
 
 

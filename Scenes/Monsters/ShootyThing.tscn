@@ -143,7 +143,6 @@ Projectile = ExtResource( 3 )
 position = Vector2( 1.12247, -5.71693 )
 frames = SubResource( 19 )
 animation = "alert"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

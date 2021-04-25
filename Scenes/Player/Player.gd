@@ -19,9 +19,11 @@ export (Script) var basic_item_projectile = load("res://Scenes/Items/BasicProjec
 export (NodePath) var hud_path
 export (NodePath) var tilemap_path
 
+enum PlayerStates { UNLOCKED, USE, HIT, DEAD }
+var current_state = PlayerStates.UNLOCKED
+
 var velocity = Vector2()
 var jumping = false
-var is_dead = false
 var shader_timer = 0
 var blinking = false
 var invincibility = false
@@ -93,7 +95,11 @@ func get_item_input():
 
 func get_animation():
 	var new_animation
-	if velocity.y < 0:
+	if current_state == PlayerStates.USE:
+		new_animation = 'interact'
+	elif current_state == PlayerStates.HIT:
+		new_animation = 'hit'
+	elif velocity.y < 0:
 		new_animation = 'jump'
 	elif velocity.y > 0:
 		new_animation = 'fall'
@@ -105,7 +111,7 @@ func get_animation():
 
 
 func process_invincibility(delta):
-	if invincibility:
+	if invincibility and not current_state == PlayerStates.HIT:
 		invincibility_counter += delta
 		shader_timer += delta * blinking_speed
 		var mat = sprite.get_material()
@@ -120,9 +126,10 @@ func process_invincibility(delta):
 
 
 func _physics_process(delta):
-	if not is_dead:
+	if not current_state == PlayerStates.DEAD:
 		cursor.update()
-		get_input()
+		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:
+			get_input()
 		get_animation()
 		process_invincibility(delta)
 
@@ -134,15 +141,20 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
-func _on_hit(damageTaken, _other):
-	if not invincibility and not is_dead:
+func _on_hit(damageTaken, attacker):
+	if not invincibility and not current_state == PlayerStates.DEAD:
 		self.health = max(self.health - damageTaken, 0)
 		self.play_random_hit_audio()
-		if health == 0:
+		if health > 0:
+			current_state = PlayerStates.HIT
+			var attack_direction = attacker.global_position - global_position
+			velocity.x = -200 if attack_direction.x > 0 else 200
+			velocity.y = -200
+		else:
 			emit_signal('player_died')
 			hud.player_is_dead()
 			$RestartAfterDeath.start()
-			self.is_dead = true
+			self.current_state = PlayerStates.DEAD
 			self.velocity.x = 0
 			self.velocity.y = 0
 			# Aca iria la animacion de la muerte si tuvieramos
@@ -185,6 +197,12 @@ func pickup_item(item):
 func use_item():
 	if get_active_item():
 		get_active_item().use()
+		current_state = PlayerStates.USE
+
+
+func _on_AnimatedSprite_animation_finished():
+	if current_state == PlayerStates.USE or current_state == PlayerStates.HIT:
+		current_state = PlayerStates.UNLOCKED
 
 
 func spend_active_item():

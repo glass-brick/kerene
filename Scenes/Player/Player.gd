@@ -23,7 +23,6 @@ enum PlayerStates { UNLOCKED, USE, HIT, DEAD }
 var current_state = PlayerStates.UNLOCKED
 
 var velocity = Vector2()
-var jumping = false
 var shader_timer = 0
 var blinking = false
 var invincibility = false
@@ -70,7 +69,6 @@ func get_input():
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
 	if jump and is_on_floor():
-		jumping = true
 		velocity.y = jump_speed
 		if jump_damage_activated:
 			self.health = max(self.health - jump_damage, 0)
@@ -133,31 +131,26 @@ func _physics_process(delta):
 		get_animation()
 		process_invincibility(delta)
 
-		velocity.y += gravity * delta
+	velocity.y += gravity * delta
 
-		if jumping:
-			jumping = false
-
-		velocity = move_and_slide(velocity, Vector2(0, -1))
+	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
 func _on_hit(damageTaken, attacker):
 	if not invincibility and not current_state == PlayerStates.DEAD:
 		self.health = max(self.health - damageTaken, 0)
 		self.play_random_hit_audio()
+		var attack_direction = attacker.global_position - global_position
+		velocity.x = -200 if attack_direction.x > 0 else 200
+		velocity.y = -200
 		if health > 0:
 			current_state = PlayerStates.HIT
-			var attack_direction = attacker.global_position - global_position
-			velocity.x = -200 if attack_direction.x > 0 else 200
-			velocity.y = -200
 		else:
 			emit_signal('player_died')
 			hud.player_is_dead()
 			$RestartAfterDeath.start()
 			self.current_state = PlayerStates.DEAD
-			self.velocity.x = 0
-			self.velocity.y = 0
-			# Aca iria la animacion de la muerte si tuvieramos
+			sprite.play('death')
 		self.invincibility = true
 		self.hud.update_health(self.health)
 

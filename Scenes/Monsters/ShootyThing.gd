@@ -31,11 +31,11 @@ func _process_idle(_delta, _meta):
 		var result = space_state.intersect_ray(global_position, player.global_position, [self])
 		if result and result.collider == player:
 			set_monster_state_with_meta(MonsterStates.ATTACKING, player)
-			# $AnimatedSprite.play('attack')
 
 
 func _process_attacking(delta, target):
 	if state_time == 0 or shoot_cooldown_current > self.shoot_cooldown:
+		$AnimatedSprite.play('attack')
 		var detectedEntities = detection_area.get_overlapping_bodies()
 		if detectedEntities.empty():
 			set_monster_state(MonsterStates.IDLE)
@@ -51,11 +51,16 @@ func _process_attacking(delta, target):
 	state_time += delta
 
 
-func _on_dead_start(_delta):
-	$AnimatedSprite.stop()
-	# $AnimatedSprite.flip_v = true
-	# $AnimatedSprite.play('death')
+func _on_dead_start(_meta):
+	$AnimatedSprite.play('death')
 	$CleanBody.start()
+	# only collide with the world
+	collision_mask = 1
+	collision_layer = 0
+
+
+func _on_hit_start(_meta):
+	$AnimatedSprite.play('hit')
 
 
 func _on_hit(damageTaken):
@@ -66,3 +71,8 @@ func _on_hit(damageTaken):
 
 func _on_CleanBody_timeout():
 	queue_free()
+
+
+func _on_AnimatedSprite_animation_finished():
+	if get_monster_state() != MonsterStates.DEAD:
+		$AnimatedSprite.play('idle')

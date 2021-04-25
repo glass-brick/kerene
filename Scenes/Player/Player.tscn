@@ -5,10 +5,10 @@
 [ext_resource path="res://Scenes/Items/BasicAttack.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Items/BasicProjectileAttack.gd" type="Script" id=4]
 [ext_resource path="res://Shaders/blink.shader" type="Shader" id=5]
-[ext_resource path="res://Sounds/PJ_hit_2.wav" type="AudioStream" id=6]
-[ext_resource path="res://Sounds/PJ_hit_5.wav" type="AudioStream" id=7]
-[ext_resource path="res://Sounds/PJ_hit_4.wav" type="AudioStream" id=8]
-[ext_resource path="res://Sounds/cut.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/PJ_hit_2_short.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/PJ_hit_2_short_2.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/PJ_hit_5_short.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/cut_short.wav" type="AudioStream" id=9]
 [ext_resource path="res://Sounds/shoot.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sprites/swoosh.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/Player/PlayerAttack.gd" type="Script" id=12]
@@ -44,55 +44,55 @@ region = Rect2( 0, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 66, 22, 22 )
+region = Rect2( 0, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 44, 22, 22 )
+region = Rect2( 22, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 44, 22, 22 )
+region = Rect2( 44, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 44, 22, 22 )
+region = Rect2( 0, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 22, 22, 22 )
+region = Rect2( 22, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 22, 22, 22 )
+region = Rect2( 44, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 22, 22, 22 )
+region = Rect2( 66, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 22, 22, 22 )
+region = Rect2( 88, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 88, 22, 22, 22 )
+region = Rect2( 110, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 110, 22, 22, 22 )
+region = Rect2( 66, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 66, 22, 22 )
+region = Rect2( 22, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 66, 22, 22 )
+region = Rect2( 44, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 66, 22, 22 )
+region = Rect2( 66, 44, 22, 22 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
@@ -106,29 +106,29 @@ animations = [ {
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
-"name": "death",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 9 ), SubResource( 10 ) ],
-"loop": false,
-"name": "hit",
+"name": "interact",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 11 ) ],
-"loop": false,
-"name": "fall",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"frames": [ SubResource( 17 ) ],
 "loop": true,
-"name": "interact",
+"name": "death",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ) ],
+"loop": false,
+"name": "fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ) ],
+"loop": false,
+"name": "hit",
 "speed": 10.0
 } ]
 
@@ -176,31 +176,27 @@ basic_item_projectile = ExtResource( 4 )
 material = SubResource( 1 )
 frames = SubResource( 21 )
 animation = "interact"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4 )
+position = Vector2( 0, 5 )
 shape = SubResource( 22 )
 
 [node name="Audio1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -17.181
 
 [node name="Audio2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
-volume_db = -18.175
+stream = ExtResource( 7 )
 
 [node name="Audio3" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
-volume_db = -19.184
+stream = ExtResource( 8 )
 
 [node name="AudioCut" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
-volume_db = -19.184
 
 [node name="AudioShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
-volume_db = -19.184
 
 [node name="PlayerAttack" type="Area2D" parent="."]
 position = Vector2( -0.117981, -5.19131 )

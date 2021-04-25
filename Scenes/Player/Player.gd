@@ -19,7 +19,7 @@ export (Script) var basic_item_projectile = load("res://Scenes/Items/BasicProjec
 export (NodePath) var hud_path
 export (NodePath) var tilemap_path
 
-enum PlayerStates { UNLOCKED, USE, HIT, DEAD }
+enum PlayerStates { UNLOCKED, USE, HIT, CLIMB_STOP, CLIMB_MOVE, DEAD }
 var current_state = PlayerStates.UNLOCKED
 
 var velocity = Vector2()
@@ -27,6 +27,7 @@ var shader_timer = 0
 var blinking = false
 var invincibility = false
 var invincibility_counter = 0
+const SPRITE_CENTER_OFFSET = Vector2(11, 11)
 
 onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
@@ -49,9 +50,10 @@ func get_active_item():
 	return items[active_item]["object"]
 
 
-func get_input():
+func get_input(override_enable_jump):
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
+	var up = Input.is_action_pressed('ui_up')
 	var jump = Input.is_action_just_pressed('ui_select')
 	var use = Input.is_action_just_pressed("Use_item")
 
@@ -68,7 +70,7 @@ func get_input():
 			velocity.x = min(velocity.x + acceleration, 0)
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
-	if jump and is_on_floor():
+	if jump and (override_enable_jump or is_on_floor()):
 		velocity.y = jump_speed
 		if jump_damage_activated:
 			self.health = max(self.health - jump_damage, 0)
@@ -77,6 +79,14 @@ func get_input():
 	get_item_input()
 	if use:
 		self.use_item()
+
+	if up:
+		var tile_position = tilemap.world_to_map(global_position)
+		var is_stair = tilemap.is_stair(tile_position)
+		if is_stair:
+			current_state = PlayerStates.CLIMB_STOP
+			position = tilemap.map_to_world(tile_position) + (tilemap.cell_size / 2)
+			velocity = Vector2(0, 0)
 
 
 func get_item_input():
@@ -92,20 +102,23 @@ func get_item_input():
 
 
 func get_animation():
-	var new_animation
-	if current_state == PlayerStates.USE:
-		new_animation = 'interact'
+	if current_state == PlayerStates.CLIMB_STOP:
+		sprite.play('climb')
+		sprite.stop()
+	elif current_state == PlayerStates.CLIMB_MOVE:
+		sprite.play('climb')
+	elif current_state == PlayerStates.USE:
+		sprite.play('interact')
 	elif current_state == PlayerStates.HIT:
-		new_animation = 'hit'
+		sprite.play('hit')
 	elif velocity.y < 0:
-		new_animation = 'jump'
+		sprite.play('jump')
 	elif velocity.y > 0:
-		new_animation = 'fall'
+		sprite.play('fall')
 	elif velocity.x != 0:
-		new_animation = 'walk'
+		sprite.play('walk')
 	else:
-		new_animation = 'idle'
-	sprite.play(new_animation)
+		sprite.play('idle')
 
 
 func process_invincibility(delta):
@@ -123,17 +136,53 @@ func process_invincibility(delta):
 		mat.set_shader_param("timer", shader_timer)
 
 
+func check_for_stair_exit():
+	var right = Input.is_action_pressed('ui_right')
+	var left = Input.is_action_pressed('ui_left')
+	var jump = Input.is_action_just_pressed('ui_select')
+
+	return right or left or jump
+
+
+func get_stair_input():
+	var up = Input.is_action_pressed('ui_up')
+	var down = Input.is_action_pressed('ui_down')
+
+	if up or down:
+		var tile_position = tilemap.world_to_map(global_position)
+		var multiplier = -1 if up else 1
+		tile_position.y += multiplier
+		if tilemap.is_stair(tile_position):
+			velocity.y = 100 * multiplier
+			current_state = PlayerStates.CLIMB_MOVE
+		else:
+			velocity.y = 0
+			current_state = PlayerStates.CLIMB_STOP
+	else:
+		velocity.y = 0
+		current_state = PlayerStates.CLIMB_STOP
+
+	if check_for_stair_exit():
+		current_state = PlayerStates.UNLOCKED
+		get_input(true)
+	else:
+		velocity = move_and_slide(velocity, Vector2(0, -1))
+
+
 func _physics_process(delta):
+	print(current_state)
 	if not current_state == PlayerStates.DEAD:
 		cursor.update()
 		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:
-			get_input()
+			get_input(false)
+		elif current_state == PlayerStates.CLIMB_STOP or current_state == PlayerStates.CLIMB_MOVE:
+			get_stair_input()
 		get_animation()
 		process_invincibility(delta)
 
-	velocity.y += gravity * delta
-
-	velocity = move_and_slide(velocity, Vector2(0, -1))
+	if not (current_state == PlayerStates.CLIMB_STOP or current_state == PlayerStates.CLIMB_MOVE):
+		velocity.y += gravity * delta
+		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
 func _on_hit(damageTaken, attacker):
@@ -164,6 +213,7 @@ func play_random_hit_audio():
 	else:
 		$Audio3.play()
 
+
 func play_mine_sound():
 	var audio_choice = rand_range(1, 4)
 	if audio_choice < 2:
@@ -172,6 +222,7 @@ func play_mine_sound():
 		$AudioDig2.play()
 	else:
 		$AudioDig3.play()
+
 
 func play_cut_audio():
 	$AudioCut.play()
@@ -201,8 +252,8 @@ func use_item():
 		current_state = PlayerStates.USE
 
 
-func mine(tilePosition):
-	tilemap.mine(tilePosition)
+func mine(tile_position):
+	tilemap.mine(tile_position)
 	current_state = PlayerStates.USE
 
 

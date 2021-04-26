@@ -15,6 +15,10 @@ func _ready():
 			node.connect("stop_music", self, "_stop_music")
 		if node.get_filename() == "res://Scenes/Level/MessageTrigger.tscn":
 			node.connect("show_message", self, "_show_message")
+		if node.get_filename() == "res://Scenes/Monsters/DarkLord.tscn":
+			node.connect("show_message", self, "_show_message")
+			node.connect("start_music", self, "_play_music")
+			node.connect("stop_music", self, "_stop_music")
 		if node.get_filename() == "res://Scenes/Player/Player.tscn":
 			player = node
 

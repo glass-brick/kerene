@@ -21,7 +21,7 @@ export (Script) var basic_item_nothing = load("res://Scenes/Items/BasicNothing.g
 export (NodePath) var hud_path
 export (NodePath) var tilemap_path
 
-enum PlayerStates { UNLOCKED, USE, HIT, CLIMB_STOP, CLIMB_MOVE, DEAD }
+enum PlayerStates { UNLOCKED, LOCKED, USE, HIT, CLIMB_STOP, CLIMB_MOVE, DEAD }
 var current_state = PlayerStates.UNLOCKED
 
 var velocity = Vector2()
@@ -120,7 +120,6 @@ func get_item_input():
 
 
 func get_animation():
-	print(velocity.y, is_on_floor())
 	if current_state == PlayerStates.CLIMB_STOP:
 		sprite.play('climb')
 		sprite.stop()
@@ -189,7 +188,27 @@ func get_stair_input():
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
+func lock():
+	velocity.x = 0
+	velocity.y = 0
+	current_state = PlayerStates.LOCKED
+
+
+func unlock():
+	current_state = PlayerStates.UNLOCKED
+
+
+func process_locked(delta):
+	get_animation()
+	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0, -1))
+
+
 func _physics_process(delta):
+	if current_state == PlayerStates.LOCKED:
+		process_locked(delta)
+		return
+
 	if not current_state == PlayerStates.DEAD:
 		cursor.update()
 		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:

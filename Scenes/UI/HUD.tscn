@@ -123,6 +123,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Message" type="Label" parent="."]
+visible = false
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 1.18921
+margin_top = -63.7438
+margin_right = 1.18921
+margin_bottom = -14.7438
+custom_fonts/font = ExtResource( 1 )
+text = "Test Text"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Yes" type="Button" parent="."]
 pause_mode = 2
 margin_left = 326.5

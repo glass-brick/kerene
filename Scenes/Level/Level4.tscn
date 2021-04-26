@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/Level/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Level/Tilemap.tres" type="TileSet" id=3]
+[ext_resource path="res://Scenes/Level/Level4.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/UI/HUD.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Level/TileMap.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/Monsters/Rat.tscn" type="PackedScene" id=7]
@@ -12,8 +13,13 @@
 [ext_resource path="res://Scenes/Monsters/ShootyThing.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Items/BasicMelee.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Items/BasicProjectile.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Music/tolengote.wav" type="AudioStream" id=14]
+[ext_resource path="res://Scenes/Level/MusicTrigger.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Level/MusicStopper.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/Level/MessageTrigger.tscn" type="PackedScene" id=17]
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -398,4 +404,19 @@ position = Vector2( 833.6, -871.5 )
 
 [node name="Node2D46" parent="." instance=ExtResource( 10 )]
 position = Vector2( 572.657, -875.703 )
+
+[node name="MusicTrigger" parent="." instance=ExtResource( 15 )]
+position = Vector2( 288, -888 )
+
+[node name="Music" type="Node" parent="."]
+
+[node name="tolengote" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 14 )
+
+[node name="MusicStopper" parent="." instance=ExtResource( 16 )]
+position = Vector2( 605.301, -887.3 )
+
+[node name="MusicTrigger2" parent="." instance=ExtResource( 17 )]
+position = Vector2( 341.788, -895.755 )
+message = "La cosa cosa"
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

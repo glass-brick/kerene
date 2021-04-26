@@ -303,3 +303,6 @@ func _on_heal(amount):
 	$AudioHeal.play()
 	self.hud.update_health(self.health)
 	return true
+
+func show_message(message, time):
+	hud.show_message(message, time)

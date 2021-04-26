@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+export (int) var message_time = 1
+var time_passed = 0
 var paused = false
 func _ready():
 	$Death_msg.hide()
@@ -14,6 +16,13 @@ func _physics_process(delta):
 			self.ask_restart()
 		else:
 			self._on_No_pressed()
+	if time_passed > message_time:
+		$Message.modulate = Color($Message.modulate.r, $Message.modulate.g, $Message.modulate.b, $Message.modulate.a - delta)
+	elif $Message.modulate.a < 1 :
+		$Message.modulate = Color($Message.modulate.r, $Message.modulate.g, $Message.modulate.b, $Message.modulate.a + delta)
+	else:
+		time_passed += delta
+
 
 
 func update_health(health):
@@ -63,3 +72,10 @@ func _on_No_pressed():
 	$Controls.hide()
 	get_tree().paused = false
 
+func show_message(message, time):
+	time_passed = 0
+	message_time = time
+	$Message.text = message
+	$Message.modulate = Color($Message.modulate.r, $Message.modulate.g, $Message.modulate.b, 0)
+	$Message.show()
+	

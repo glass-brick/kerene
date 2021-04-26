@@ -278,5 +278,8 @@ func spend_active_item():
 
 
 func _on_heal(amount):
-	self.health += amount
+	if health == 100:
+		return false
+	self.health = (100 if self.health + amount > 100 else self.health + amount)
 	self.hud.update_health(self.health)
+	return true

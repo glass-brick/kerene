@@ -7,5 +7,5 @@ func _init(player):
 	item_owner = player
 
 
-func use():
-	return
+func use(time_since_last_use):
+	return false

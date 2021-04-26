@@ -30,6 +30,7 @@ var blinking = false
 var invincibility = false
 var invincibility_counter = 0
 const SPRITE_CENTER_OFFSET = Vector2(11, 11)
+var time_since_last_use = 0
 
 onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
@@ -87,8 +88,6 @@ func get_input(override_enable_jump):
 			$AudioFootsteps.stop()
 
 	get_item_input()
-	if use:
-		self.use_item()
 
 	if up:
 		var tile_position = tilemap.world_to_map(global_position)
@@ -192,6 +191,7 @@ func _physics_process(delta):
 	if not (current_state == PlayerStates.CLIMB_STOP or current_state == PlayerStates.CLIMB_MOVE):
 		velocity.y += gravity * delta
 		velocity = move_and_slide(velocity, Vector2(0, -1))
+	self.time_since_last_use += delta
 
 
 func _on_hit(damageTaken, attacker):
@@ -253,8 +253,11 @@ func pickup_item(item_name):
 
 func use_item():
 	if get_active_item():
-		get_active_item().use()
-		current_state = PlayerStates.USE
+		print(self.time_since_last_use)
+		if get_active_item().use(self.time_since_last_use):
+			print("banca, uso")
+			current_state = PlayerStates.USE
+			self.time_since_last_use = 0
 
 
 func mine(tile_position):

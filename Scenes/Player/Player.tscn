@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Sprites/Player.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=2]
@@ -9,13 +9,15 @@
 [ext_resource path="res://Sounds/PJ_hit_2_short_2.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/PJ_hit_5_short.wav" type="AudioStream" id=8]
 [ext_resource path="res://Sounds/cut_short.wav" type="AudioStream" id=9]
-[ext_resource path="res://Sounds/shoot.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/shoot_4.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sprites/swoosh.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/Player/PlayerAttack.gd" type="Script" id=12]
 [ext_resource path="res://Sounds/dig1l.wav" type="AudioStream" id=13]
 [ext_resource path="res://Sounds/dig2.wav" type="AudioStream" id=14]
 [ext_resource path="res://Sounds/dig3.wav" type="AudioStream" id=15]
 [ext_resource path="res://Sounds/Footsteps.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sounds/pickup_sword.wav" type="AudioStream" id=17]
+[ext_resource path="res://Sounds/pickup_ward_2.wav" type="AudioStream" id=18]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
@@ -203,6 +205,7 @@ volume_db = -1.0
 
 [node name="AudioShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+volume_db = -4.0
 
 [node name="PlayerAttack" type="Area2D" parent="."]
 position = Vector2( -0.117981, -5.19131 )
@@ -236,5 +239,12 @@ volume_db = -5.0
 
 [node name="AudioFootsteps" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
+
+[node name="AudioPickupSword" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+
+[node name="AudioPickupWand" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -1.0
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="PlayerAttack/AttackSprite" to="PlayerAttack" method="_on_AttackSprite_animation_finished"]

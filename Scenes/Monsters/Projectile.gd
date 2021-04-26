@@ -23,6 +23,7 @@ func _physics_process(delta):
 
 
 func explode():
+	$AudioStreamPlayer.play()
 	$AnimatedSprite.play('explode')
 	exploding = true
 

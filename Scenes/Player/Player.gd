@@ -31,6 +31,7 @@ var invincibility = false
 var invincibility_counter = 0
 const SPRITE_CENTER_OFFSET = Vector2(11, 11)
 var time_since_last_use = 0
+var pick_up_sounds = {}
 
 onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
@@ -48,6 +49,9 @@ var active_item = "basic_nothing"
 func _ready():
 	self.hud.update_health(self.health)
 	self.hud.update_active_item(get_active_item().item_name)
+	pick_up_sounds['basic_attack'] = $AudioPickupSword
+	pick_up_sounds['basic_projectile_attack'] = $AudioPickupWand
+
 
 
 func get_active_item():
@@ -247,8 +251,12 @@ func _on_RestartAfterDeath_timeout():
 func pickup_item(item_name):
 	if item_name in self.items:
 		self.items[item_name]["amount"] += 1
+		play_pickup_sound(item_name)
 		self.active_item = item_name
 	return true
+
+func play_pickup_sound(item_name):
+	pick_up_sounds[item_name].play()
 
 
 func use_item():

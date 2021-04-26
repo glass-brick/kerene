@@ -17,21 +17,30 @@ func _physics_process(delta):
 
 
 func update_health(health):
-	$Health.text = "Health: " + str(health)
+	$Health.text = str(health)
 	$Health.show()
+	$Health_bat.set_value(health)
 	
 func player_is_dead():
 	$Death_msg.show()
 
 func update_active_item(item):
-	$CurrentItem.text = "Current Item: " + str(item)
-	$CurrentItem.show()
+	$Weapons/Sword.modulate = Color(255,255,255,255)
+	$Weapons/Wand.modulate = Color(255,255,255,255)
+	if item == "basic_attack":
+		$Weapons/Sword.show()
+		$Weapons/Sword.modulate = Color(255,255,0,255)
+	if item == "basic_projectile_attack":
+		$Weapons/Wand.show()
+		$Weapons/Wand.modulate = Color(0,0,255,255)
+
 
 func ask_restart():
 	paused = true
 	$Restart.show()
 	$Yes.show()
 	$No.show()
+	$Controls.show()
 	get_tree().paused = true
 
 
@@ -46,5 +55,6 @@ func _on_No_pressed():
 	$Restart.hide() # Replace with function body.
 	$Yes.hide()
 	$No.hide()
+	$Controls.hide()
 	get_tree().paused = false
 

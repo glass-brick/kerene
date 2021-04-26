@@ -41,8 +41,8 @@ func update_mouse_positions():
 func update_mouse_image():
 	if cursorType == CursorTypes.MINE :
 		Input.set_custom_mouse_cursor(pick)
-	elif cursorType == CursorTypes.ATTACK:
-		Input.set_custom_mouse_cursor(sword)
+	# elif cursorType == CursorTypes.ATTACK:
+		# Input.set_custom_mouse_cursor(sword)
 	else:
 		Input.set_custom_mouse_cursor(cursor)
 

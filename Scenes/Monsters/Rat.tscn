@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Sprites/BatCrabRatSlime/Rat/Rat_Idle.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/BatCrabRatSlime/Rat/Rat_Run.png" type="Texture" id=2]
@@ -156,9 +156,12 @@ extents = Vector2( 8, 5 )
 [sub_resource type="CircleShape2D" id=29]
 radius = 52.1653
 
+[sub_resource type="RectangleShape2D" id=30]
+extents = Vector2( 8.44762, 6.57587 )
+
 [node name="Rat" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 2147483653
+collision_mask = 2147483649
 script = ExtResource( 3 )
 speed = 90
 damage = 25
@@ -195,5 +198,14 @@ volume_db = -19.184
 [node name="AudioDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -18.175
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0.595276, 9.92126 )
+shape = SubResource( 30 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="CleanBody" to="." method="_on_CleanBody_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

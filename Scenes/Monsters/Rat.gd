@@ -52,11 +52,6 @@ func _on_attacking_start(_meta):
 func _process_attacking(_delta, _meta):
 	velocity.x = speed if get_current_side() == Sides.RIGHT else -speed
 	state_time += 1
-	var slide_count = get_slide_count()
-	if slide_count:
-		var collision = get_slide_collision(slide_count - 1)
-		if collision.collider.has_method('_on_hit'):
-			collision.collider.call('_on_hit', damage, self)
 	if state_time > attack_time_limit:
 		state_time = 0
 		set_monster_state(MonsterStates.MOVING)
@@ -100,3 +95,8 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_CleanBody_timeout():
 	queue_free()
+
+
+func _on_Hitbox_body_entered(body):
+	if not get_monster_state() == MonsterStates.DEAD and body.has_method('_on_hit'):
+		body._on_hit(self.damage, self)

@@ -6,21 +6,22 @@ export (int) var fade_in_speed = 6
 export (int) var fade_out_speed = 3
 var player
 
+
 func _ready():
 	for node in get_children():
-		if node.get_filename() == "res://Scenes/Level/MusicTrigger.tscn": 
+		if node.get_filename() == "res://Scenes/Level/MusicTrigger.tscn":
 			node.connect("start_music", self, "_play_music")
-			print("agregado")
-		if node.get_filename() == "res://Scenes/Level/MusicStopper.tscn": 
+		if node.get_filename() == "res://Scenes/Level/MusicStopper.tscn":
 			node.connect("stop_music", self, "_stop_music")
-		if node.get_filename() == "res://Scenes/Level/MessageTrigger.tscn": 
+		if node.get_filename() == "res://Scenes/Level/MessageTrigger.tscn":
 			node.connect("show_message", self, "_show_message")
 		if node.get_filename() == "res://Scenes/Player/Player.tscn":
 			player = node
 
+
 func _play_music(name, fadein):
 	_stop_music(false)
-	var targetNode = get_node("Music/"+str(name))
+	var targetNode = get_node("Music/" + str(name))
 	if targetNode.has_method("play"):
 		if fadein:
 			music_fading_in.append(targetNode)
@@ -29,8 +30,8 @@ func _play_music(name, fadein):
 			targetNode.volume_db = 0
 
 		targetNode.play()
-		
-		
+
+
 func _stop_music(fadeout):
 	for node in get_node("Music").get_children():
 		if node.has_method('stop') and node.is_playing():
@@ -39,9 +40,11 @@ func _stop_music(fadeout):
 			else:
 				node.stop()
 
+
 func _show_message(message, time):
 	player.show_message(message, time)
-	
+
+
 func _physics_process(delta):
 	for node in music_fading_in:
 		node.volume_db += delta * fade_in_speed
@@ -52,4 +55,3 @@ func _physics_process(delta):
 		if node.volume_db < -80:
 			music_fading_out.remove(music_fading_out.bsearch(node))
 			node.stop()
-

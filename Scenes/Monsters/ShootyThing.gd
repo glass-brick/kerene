@@ -62,7 +62,6 @@ func _process_dead(delta, meta):
 
 
 func _on_attacking_start(_meta):
-	
 	$AnimatedSprite.play('alert')
 
 
@@ -98,3 +97,8 @@ func _on_AnimatedSprite_animation_finished():
 		$AnimatedSprite.play('alert')
 	if get_monster_state() == MonsterStates.HIT:
 		set_monster_state(MonsterStates.IDLE)
+
+
+func _on_Hitbox_body_entered(body):
+	if not get_monster_state() == MonsterStates.DEAD and body.has_method('_on_hit'):
+		body._on_hit(self.damage, self)

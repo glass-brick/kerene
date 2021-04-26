@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Sprites/BatCrabRatSlime/Slime/Slime_Spiked_Idle.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Monsters/ShootyThing.gd" type="Script" id=2]
@@ -146,9 +146,10 @@ extents = Vector2( 10.6701, 8.69134 )
 [sub_resource type="CircleShape2D" id=25]
 radius = 312.327
 
+[sub_resource type="RectangleShape2D" id=26]
+
 [node name="ShootyThing" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 5
 script = ExtResource( 2 )
 damage = 20
 health = 30
@@ -190,5 +191,13 @@ volume_db = -1.0
 
 [node name="AudioShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 26 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="CleanBody" to="." method="_on_CleanBody_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

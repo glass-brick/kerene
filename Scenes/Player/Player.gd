@@ -55,7 +55,6 @@ func _ready():
 	pick_up_sounds['basic_projectile_attack'] = $AudioPickupWand
 
 
-
 func get_active_item():
 	return items[active_item]["object"]
 
@@ -115,12 +114,13 @@ func get_item_input():
 
 	if item and items["basic_attack"]['amount'] > 0:
 		active_item = "basic_attack"
-	if item2 and items["basic_projectile_attack"]['amount']  > 0:
+	if item2 and items["basic_projectile_attack"]['amount'] > 0:
 		active_item = "basic_projectile_attack"
 	self.hud.update_active_item(get_active_item().item_name)
 
 
 func get_animation():
+	print(velocity.y, is_on_floor())
 	if current_state == PlayerStates.CLIMB_STOP:
 		sprite.play('climb')
 		sprite.stop()
@@ -130,10 +130,11 @@ func get_animation():
 		sprite.play('interact')
 	elif current_state == PlayerStates.HIT:
 		sprite.play('hit')
-	elif velocity.y < 0:
-		sprite.play('jump')
-	elif velocity.y > 0:
-		sprite.play('fall')
+	elif not is_on_floor():
+		if velocity.y < 0:
+			sprite.play('jump')
+		else:
+			sprite.play('fall')
 	elif velocity.x != 0:
 		sprite.play('walk')
 	else:
@@ -189,7 +190,6 @@ func get_stair_input():
 
 
 func _physics_process(delta):
-
 	if not current_state == PlayerStates.DEAD:
 		cursor.update()
 		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:
@@ -267,6 +267,7 @@ func pickup_item(item_name):
 		self.active_item = item_name
 	return true
 
+
 func play_pickup_sound(item_name):
 	pick_up_sounds[item_name].play()
 
@@ -303,6 +304,7 @@ func _on_heal(amount):
 	$AudioHeal.play()
 	self.hud.update_health(self.health)
 	return true
+
 
 func show_message(message, time):
 	hud.show_message(message, time)

@@ -14,8 +14,8 @@ func use(time_since_last_use):
 		var is_left_side = item_owner.sprite.flip_h
 
 		if is_left_side:
-			item_owner.player_attack.attack_left(40)
+			item_owner.player_attack.attack_left(30)
 		else:
-			item_owner.player_attack.attack_right(40)
+			item_owner.player_attack.attack_right(30)
 		return true
 	return false

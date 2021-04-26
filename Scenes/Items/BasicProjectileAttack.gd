@@ -23,9 +23,9 @@ func use(time_since_last_use):
 
 func fire_projectile_in_dir(direction):
 	var projectile = projectileBase.instance()
-	# projectile.speed = projectile_speed
-	# projectile.damage = projectile_damage
-	# projectile.projectile_range = projectile_range
+	projectile.speed = projectile_speed
+	projectile.damage = projectile_damage
+	projectile.projectile_range = projectile_range
 	projectile.direction = direction
 	item_owner.get_tree().get_root().get_node("GameManager").add_child(projectile)
 	projectile.position = item_owner.position

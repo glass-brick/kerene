@@ -1,4 +1,4 @@
-var item_name = "BasicAttack"
+var item_name = "basic_attack"
 
 var item_owner = false
 

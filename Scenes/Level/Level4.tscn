@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Level/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scenes/Monsters/Spikes.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Items/Health.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Monsters/ShootyThing.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Items/BasicMelee.tscn" type="PackedScene" id=12]
 
 [node name="Level" type="Node2D"]
 
@@ -164,11 +165,6 @@ scale = Vector2( 1, -1 )
 [node name="ShootyThing17" parent="." instance=ExtResource( 11 )]
 position = Vector2( 239.962, -791.406 )
 scale = Vector2( 1, -1 )
-
-[node name="sword_item" type="Sprite" parent="."]
-position = Vector2( 287.084, -870.971 )
-scale = Vector2( 0.414723, 0.449841 )
-texture = ExtResource( 8 )
 
 [node name="Node2D10" parent="." instance=ExtResource( 9 )]
 position = Vector2( 496.895, -113.994 )
@@ -394,4 +390,7 @@ rotation = 1.58345
 
 [node name="ShootyThing29" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392.454, 87.252 )
+
+[node name="BasicMelee" parent="." instance=ExtResource( 12 )]
+position = Vector2( 286.203, -871.284 )
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

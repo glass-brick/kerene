@@ -10,6 +10,5 @@ func _on_Area2D_body_entered(body):
 	if body.has_method("pickup_item"):
 		if body.pickup_item(weapon_script):
 			self.pick_up_item()
-	print("item is being pass oon")
 
 

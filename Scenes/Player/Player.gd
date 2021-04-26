@@ -16,6 +16,7 @@ export (int) var dig_length = 100
 
 export (Script) var basic_item = load("res://Scenes/Items/BasicAttack.gd")
 export (Script) var basic_item_projectile = load("res://Scenes/Items/BasicProjectileAttack.gd")
+export (Script) var basic_item_nothing = load("res://Scenes/Items/BasicNothing.gd")
 
 export (NodePath) var hud_path
 export (NodePath) var tilemap_path
@@ -35,11 +36,12 @@ onready var hud = get_node(hud_path)
 onready var cursor = load("res://Scenes/Player/Cursor.gd").new(self)
 onready var player_attack = $PlayerAttack
 onready var items = {
-	"basic_attack": {"object": basic_item.new(self), "amount": 1},
-	"basic_projectile_attack": {"object": basic_item_projectile.new(self), "amount": 1}
+	"basic_nothing": {"object": basic_item_nothing.new(self), "amount": 1},
+	"basic_attack": {"object": basic_item.new(self), "amount": 0},
+	"basic_projectile_attack": {"object": basic_item_projectile.new(self), "amount": 0}
 }
 onready var sprite = $AnimatedSprite
-var active_item = "basic_attack"
+var active_item = "basic_nothing"
 
 
 func _ready():
@@ -102,9 +104,9 @@ func get_item_input():
 	var item2 = Input.is_action_just_pressed("item_2")
 	var item3 = Input.is_action_just_pressed("item_3")
 
-	if item:
+	if item and items["basic_attack"]['amount'] > 0:
 		active_item = "basic_attack"
-	if item2:
+	if item2 and items["basic_projectile_attack"]['amount']  > 0:
 		active_item = "basic_projectile_attack"
 	self.hud.update_active_item(get_active_item().item_name)
 
@@ -242,13 +244,10 @@ func _on_RestartAfterDeath_timeout():
 	emit_signal('player_died')
 
 
-func pickup_item(item):
-	var new_item = item.new()
-	if new_item.item_name in self.items:
-		self.items[new_item.item_name]["amount"] += 1
-	else:
-		new_item.item_owner = self
-		self.items[new_item.item_name] = {"amount": 1, "object": new_item}
+func pickup_item(item_name):
+	if item_name in self.items:
+		self.items[item_name]["amount"] += 1
+		self.active_item = item_name
 	return true
 
 

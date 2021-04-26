@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Items/GenericItem.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/sword_item.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Items/BasicAttack.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Items/BasicMelee.gd" type="Script" id=4]
+
+[node name="BasicMelee" instance=ExtResource( 1 )]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 4 )
+weapon_script = ExtResource( 3 )
+weapon_name = "basic_attack"
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )

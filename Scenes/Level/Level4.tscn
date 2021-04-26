@@ -397,4 +397,7 @@ position = Vector2( 286.203, -871.284 )
 
 [node name="BasicProjectile" parent="." instance=ExtResource( 13 )]
 position = Vector2( 833.6, -871.5 )
+
+[node name="Node2D46" parent="." instance=ExtResource( 10 )]
+position = Vector2( 572.657, -875.703 )
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

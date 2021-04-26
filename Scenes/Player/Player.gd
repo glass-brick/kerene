@@ -32,6 +32,8 @@ var invincibility_counter = 0
 const SPRITE_CENTER_OFFSET = Vector2(11, 11)
 var time_since_last_use = 0
 var pick_up_sounds = {}
+var was_on_floor = true
+var time_floor_check = 0
 
 onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
@@ -83,6 +85,10 @@ func get_input(override_enable_jump):
 		if jump_damage_activated:
 			self.health = max(self.health - jump_damage, 0)
 			self.hud.update_health(self.health)
+
+	if not was_on_floor and is_on_floor():
+		$AudioHitGround.play()
+		was_on_floor = is_on_floor()
 
 	if velocity.x and is_on_floor():
 		if not $AudioFootsteps.playing:
@@ -183,6 +189,7 @@ func get_stair_input():
 
 
 func _physics_process(delta):
+
 	if not current_state == PlayerStates.DEAD:
 		cursor.update()
 		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:
@@ -196,6 +203,11 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 	self.time_since_last_use += delta
+	time_floor_check += delta
+	if time_floor_check > 0.1:
+		was_on_floor = is_on_floor()
+		time_floor_check = 0
+	print(was_on_floor)
 
 
 func _on_hit(damageTaken, attacker):
@@ -289,5 +301,6 @@ func _on_heal(amount):
 	if health == 100:
 		return false
 	self.health = (100 if self.health + amount > 100 else self.health + amount)
+	$AudioHeal.play()
 	self.hud.update_health(self.health)
 	return true

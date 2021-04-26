@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/reach_ground_2.wav-ed358b24b4fc15162f5a49c9bec7f0f2.sample"
+
+[deps]
+
+source_file="res://Sounds/reach_ground_2.wav"
+dest_files=[ "res://.import/reach_ground_2.wav-ed358b24b4fc15162f5a49c9bec7f0f2.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

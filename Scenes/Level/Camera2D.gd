@@ -4,7 +4,8 @@ var isZoomedOut = false
 
 
 func _process(_delta):
-	var enter = Input.is_action_just_pressed("zoom")
+	# var enter = Input.is_action_just_pressed("zoom")
+	var enter = false
 
 	if enter:
 		isZoomedOut = not isZoomedOut

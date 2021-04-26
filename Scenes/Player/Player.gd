@@ -255,7 +255,6 @@ func use_item():
 	if get_active_item():
 		print(self.time_since_last_use)
 		if get_active_item().use(self.time_since_last_use):
-			print("banca, uso")
 			current_state = PlayerStates.USE
 			self.time_since_last_use = 0
 

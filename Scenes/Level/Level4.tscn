@@ -390,7 +390,7 @@ position = Vector2( 720.341, 38.0447 )
 rotation = 1.58345
 
 [node name="ShootyThing29" parent="." instance=ExtResource( 11 )]
-position = Vector2( 392.454, 87.252 )
+position = Vector2( 394.14, 85.3791 )
 
 [node name="BasicMelee" parent="." instance=ExtResource( 12 )]
 position = Vector2( 286.203, -871.284 )

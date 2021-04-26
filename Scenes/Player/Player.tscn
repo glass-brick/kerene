@@ -181,6 +181,7 @@ basic_item_projectile = ExtResource( 4 )
 material = SubResource( 1 )
 frames = SubResource( 21 )
 animation = "interact"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

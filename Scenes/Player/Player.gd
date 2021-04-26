@@ -256,6 +256,7 @@ func play_shoot_audio():
 
 
 func _on_RestartAfterDeath_timeout():
+	get_tree().reload_current_scene()
 	emit_signal('player_died')
 
 

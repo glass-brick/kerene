@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Fonts/xolonium/Xolonium.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/UI/HUD.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/background/background5.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/background/background4.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/background/background1.png" type="Texture" id=5]
@@ -8,6 +9,8 @@
 [ext_resource path="res://Sprites/background/background2.png" type="Texture" id=7]
 
 [node name="CanvasLayer" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 2 )
 
 [node name="Health" type="Label" parent="."]
 margin_left = 4.0
@@ -116,3 +119,45 @@ margin_bottom = 43.1748
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Restart" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -115.5
+margin_top = -50.0
+margin_right = 115.5
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 1 )
+text = "Restart?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yes" type="Button" parent="."]
+pause_mode = 2
+margin_left = 326.5
+margin_top = 348.74
+margin_right = 420.5
+margin_bottom = 403.74
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.0823529, 0.0823529, 1 )
+text = "Yes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="No" type="Button" parent="."]
+pause_mode = 2
+margin_left = 586.5
+margin_top = 350.0
+margin_right = 680.5
+margin_bottom = 405.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.0823529, 0.0823529, 1 )
+text = "No"
+[connection signal="pressed" from="Yes" to="." method="_on_Yes_pressed"]
+[connection signal="pressed" from="No" to="." method="_on_No_pressed"]

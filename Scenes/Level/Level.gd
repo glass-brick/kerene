@@ -13,3 +13,6 @@ func _ready():
 
 func _on_Player_player_died():
 	emit_signal("on_player_lose")
+
+func _on_game_restart():
+	emit_signal("on_player_lose")

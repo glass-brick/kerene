@@ -1,11 +1,11 @@
 var item_name = "basic_projectile_attack"
 
 var projectile_speed = 100
-var projectile_damage = 20
-var projectile_range = 200
+var projectile_damage = 10
+var projectile_range = 400
 var item_owner = false
 var projectileBase = preload("res://Scenes/Monsters/PlayerProjectile.tscn")
-var cooldown = 0.20
+var cooldown = 0.45
 
 
 func _init(player):

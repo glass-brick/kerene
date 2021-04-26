@@ -207,7 +207,6 @@ func _physics_process(delta):
 	if time_floor_check > 0.1:
 		was_on_floor = is_on_floor()
 		time_floor_check = 0
-	print(was_on_floor)
 
 
 func _on_hit(damageTaken, attacker):
@@ -273,7 +272,6 @@ func play_pickup_sound(item_name):
 
 func use_item():
 	if get_active_item():
-		print(self.time_since_last_use)
 		if get_active_item().use(self.time_since_last_use):
 			current_state = PlayerStates.USE
 			self.time_since_last_use = 0

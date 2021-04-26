@@ -25,14 +25,19 @@ func player_is_dead():
 	$Death_msg.show()
 
 func update_active_item(item):
-	$Weapons/Sword.modulate = Color(255,255,255,255)
+	$Weapons/Sword/Sword_image.modulate = Color(255,255,255,255)
+	$Weapons/Sword/Label.modulate = Color(255,255,255,255)
+	$Weapons/Wand/Wand_image.modulate = Color(255,255,255,255)
+	$Weapons/Wand/Label.modulate = Color(255,255,255,255)
 	$Weapons/Wand.modulate = Color(255,255,255,255)
 	if item == "basic_attack":
 		$Weapons/Sword.show()
-		$Weapons/Sword.modulate = Color(255,255,0,255)
+		$Weapons/Sword/Sword_image.modulate = Color(255,255,0,255)
+		$Weapons/Sword/Label.modulate = Color(0,0,255,255)
 	if item == "basic_projectile_attack":
 		$Weapons/Wand.show()
-		$Weapons/Wand.modulate = Color(0,0,255,255)
+		$Weapons/Wand/Wand_image.modulate = Color(255,255,0,255)
+		$Weapons/Wand/Label.modulate = Color(0,0,255,255)
 
 
 func ask_restart():

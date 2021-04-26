@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Fonts/xolonium/Xolonium.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/UI/HUD.gd" type="Script" id=2]
@@ -10,9 +10,14 @@
 [ext_resource path="res://Sprites/health.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/sword_item.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/wand.png" type="Texture" id=10]
+[ext_resource path="res://Fonts/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Regular.ttf" type="DynamicFontData" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.32549, 0.0235294, 0.0235294, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 11 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 pause_mode = 2
@@ -183,16 +188,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sword" type="TextureRect" parent="Weapons"]
+[node name="Sword" type="VBoxContainer" parent="Weapons"]
 visible = false
 margin_right = 32.0
-margin_bottom = 40.0
+margin_bottom = 61.0
+
+[node name="Label" type="Label" parent="Weapons/Sword"]
+margin_right = 32.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 2 )
+text = "1"
+align = 1
+
+[node name="Sword_image" type="TextureRect" parent="Weapons/Sword"]
+margin_top = 29.0
+margin_right = 32.0
+margin_bottom = 61.0
 texture = ExtResource( 9 )
 
-[node name="Wand" type="TextureRect" parent="Weapons"]
+[node name="Wand" type="VBoxContainer" parent="Weapons"]
 visible = false
 margin_right = 32.0
-margin_bottom = 40.0
+margin_bottom = 97.0
+
+[node name="Label" type="Label" parent="Weapons/Wand"]
+margin_right = 32.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 2 )
+text = "2"
+align = 1
+
+[node name="Wand_image" type="TextureRect" parent="Weapons/Wand"]
+margin_top = 29.0
+margin_right = 32.0
+margin_bottom = 61.0
 texture = ExtResource( 10 )
 
 [node name="Controls" type="VBoxContainer" parent="."]

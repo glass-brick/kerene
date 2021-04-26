@@ -1,7 +1,7 @@
 var item_name = "basic_attack"
 
 var item_owner = false
-var cooldown = -1
+var cooldown = 0.3
 
 
 func _init(player):

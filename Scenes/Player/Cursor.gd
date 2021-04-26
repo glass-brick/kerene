@@ -50,8 +50,8 @@ func update_mouse_image():
 func update():
 	update_mouse_positions()
 	update_mouse_image()
-	var click = Input.is_action_just_pressed('click')
-	var right_click = Input.is_action_just_pressed("right_click")
+	var click = Input.is_action_pressed('click')
+	var right_click = Input.is_action_pressed("right_click")
 	if click:
 		player.use_item()
 	if right_click:

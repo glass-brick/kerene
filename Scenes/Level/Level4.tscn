@@ -43,7 +43,7 @@ tile_data = PoolIntArray( -4718593, 1, 0, -4784128, 1, 1, -4784127, 1, 1, -47841
 script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 23.9185, -952.002 )
+position = Vector2( 25.4586, -960.117 )
 max_speed = 140
 jump_speed = -320
 hud_path = NodePath("../../Level/HUD")
@@ -1019,8 +1019,8 @@ rotation = -3.14159
 [node name="DarkLord" parent="." instance=ExtResource( 8 )]
 position = Vector2( 272.35, 4079.98 )
 actions = [ 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 2, 0, 0, 0, 0, 4 ]
-data = [ "risaMalo", "Finally, the Kerene has arrived...", "Did you bring the...", "HOLY PIZZA?", "...", "EXCELENT!", "pizzaconmerca", "WE CAN FINALLY GET THE PARTY STARTED!", "...", "Wait...", "angry", null, "I ordered a double cheese pizza...", "THIS IS A PINEAPPLE PIZZA!", "UNACCEPTABLE!", "BEGGONE YOU FILTHY PIZZA PARLOR SLAVE!", null ]
-timings = [ 4, 5, 5, 4, 5, 3, 4, 6, 5, 5, 2, 4, 7, 6, 5, 6, 7 ]
+data = [ "risaMalo", "Finally, the Kerene has arrived...", "Did you bring the...", "HOLY PIZZA?", "...", "EXCELENT!", "pizzaconmerca", "THE DARK PARTY CAN NOW BEGIN!", "...", "Wait...", "angry", null, "I ordered a double cheese pizza...", "THIS IS A PINEAPPLE PIZZA!", "UNACCEPTABLE!", "DIE, YOU FILTHY PIZZA PARLOR SLAVE!", null ]
+timings = [ 4, 3, 2, 3, 2, 2, 4, 6, 6, 8, 1, 1, 5, 4, 2, 4, 7 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DarkLord"]
 position = Vector2( 174.496, 77.9822 )
@@ -1181,7 +1181,7 @@ position = Vector2( 904.075, 871.923 )
 
 [node name="MessageTrigger" parent="." instance=ExtResource( 17 )]
 position = Vector2( 863.947, -616.074 )
-message = "As to satiate the evil entity..."
+message = "To satiate the evil entity..."
 
 [node name="MessageTrigger2" parent="." instance=ExtResource( 17 )]
 position = Vector2( 327.947, -616.028 )

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/risaMalo.wav-c5c1ed4d4e8620bfdb0e563a7f62769e.sample"
+
+[deps]
+
+source_file="res://Music/risaMalo.wav"
+dest_files=[ "res://.import/risaMalo.wav-c5c1ed4d4e8620bfdb0e563a7f62769e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

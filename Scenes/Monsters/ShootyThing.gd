@@ -5,7 +5,7 @@ export (int) var attack_time_limit = 60
 export (int) var jump_speed = -300
 export (int) var damage = 10
 export (int) var health = 20
-export (int) var shoot_cooldown = 5
+export (float) var shoot_cooldown = 5
 export (int) var projectile_speed = 100
 export (PackedScene) var Projectile
 

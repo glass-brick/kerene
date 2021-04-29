@@ -160,11 +160,9 @@ func process_invincibility(delta):
 
 
 func check_for_stair_exit():
-	var right = Input.is_action_pressed('ui_right')
-	var left = Input.is_action_pressed('ui_left')
 	var jump = Input.is_action_just_pressed('ui_select')
 
-	return right or left or jump
+	return jump
 
 
 func get_stair_input():

@@ -44,7 +44,7 @@ tile_data = PoolIntArray( -4718593, 1, 0, -4784128, 1, 1, -4784127, 1, 1, -47841
 script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 23.9178, -960.002 )
+position = Vector2( 23.9232, -896.002 )
 max_speed = 140
 jump_speed = -320
 hud_path = NodePath("../../Level/HUD")

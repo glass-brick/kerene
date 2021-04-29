@@ -39,7 +39,7 @@ onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
 onready var cursor = load("res://Scenes/Player/Cursor.gd").new(self)
 onready var player_attack = $PlayerAttack
-onready var items = {
+var items = {
 	"basic_nothing": {"object": basic_item_nothing.new(self), "amount": 1},
 	"basic_attack": {"object": basic_item.new(self), "amount": 0},
 	"basic_projectile_attack": {"object": basic_item_projectile.new(self), "amount": 0}
@@ -49,6 +49,11 @@ var active_item = "basic_nothing"
 
 
 func _ready():
+	if self.there_is_save():
+		self.load()
+		for item in items:
+			if items[item]['amount'] > 0 and item != "basic_nothing":
+				self.hud.update_active_item(item)
 	self.hud.update_health(self.health)
 	self.hud.update_active_item(get_active_item().item_name)
 	pick_up_sounds['basic_attack'] = $AudioPickupSword
@@ -327,3 +332,36 @@ func _on_heal(amount):
 
 func show_message(message, time):
 	hud.show_message(message, time)
+
+func save():
+	var dict_save = {}
+	dict_save['position'] =	{'x': self.global_position.x, 'y': self.global_position.y}
+	var save_items = {}
+	for name in self.items:
+		save_items[name] = {"amount": self.items[name]['amount']}
+	dict_save['items'] = save_items
+	dict_save['health'] = self.health
+	dict_save['active_item'] = self.active_item
+	var file = File.new()
+	file.open("user://kerene_data.dat", File.WRITE)
+	file.store_string(JSON.print(dict_save))
+	file.close()
+
+func load():
+	var file = File.new()
+	file.open("user://kerene_data.dat", File.READ)
+	var json_read = JSON.parse(file.get_as_text())
+	file.close()
+	print(json_read)
+	if json_read.error == OK:
+		var dict_save = json_read.get_result()
+		self.global_position.x = dict_save['position']['x']
+		self.global_position.y = dict_save['position']['y']
+		for name in dict_save['items']:
+			self.items[name]['amount'] = dict_save['items'][name]['amount']
+		self.health = dict_save['health']
+		self.active_item = dict_save['active_item']
+
+func there_is_save():
+	var file = File.new()
+	return file.file_exists("user://kerene_data.dat")

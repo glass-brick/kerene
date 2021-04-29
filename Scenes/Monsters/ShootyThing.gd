@@ -57,8 +57,8 @@ func _process_attacking(delta, target):
 
 
 func _process_dead(delta, meta):
-	velocity += Vector2(0, 1).rotated(rotation) * gravity * delta
-	velocity = move_and_slide(velocity, Vector2(0, 1).rotated(rotation))
+	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0, 1))
 
 
 func _on_attacking_start(_meta):
@@ -72,6 +72,9 @@ func _on_dead_start(_meta):
 	# only collide with the world
 	collision_mask = 1
 	collision_layer = 0
+	$CollisionShape2D.position.y = 9.2
+	$CollisionShape2D.get_shape().set_extents(Vector2(10, 2))
+	global_rotation = 0
 
 
 func _on_hit_start(attacker):

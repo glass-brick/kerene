@@ -69,13 +69,11 @@ one_shot = true
 position = Vector2( 525.387, -894.716 )
 
 [node name="ShootyThing13" parent="." instance=ExtResource( 11 )]
-position = Vector2( 809.968, -873.982 )
-shoot_cooldown = 5.0
+position = Vector2( 807.925, -872.069 )
 
 [node name="ShootyThing14" parent="." instance=ExtResource( 11 )]
 position = Vector2( 959.081, -918.837 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="Rat9" parent="." instance=ExtResource( 7 )]
 position = Vector2( 924.275, -755.83 )
@@ -97,31 +95,26 @@ position = Vector2( 180.213, -734.247 )
 
 [node name="ShootyThing15" parent="." instance=ExtResource( 11 )]
 position = Vector2( 861.897, -806.602 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="ShootyThing16" parent="." instance=ExtResource( 11 )]
 position = Vector2( 348.775, -807.164 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="ShootyThing17" parent="." instance=ExtResource( 11 )]
 position = Vector2( 239.962, -791.406 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="Node2D10" parent="." instance=ExtResource( 9 )]
 position = Vector2( 495.509, 525.976 )
 
 [node name="ShootyThing18" parent="." instance=ExtResource( 11 )]
 position = Vector2( 494.249, 568.219 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="ShootyThing19" parent="." instance=ExtResource( 11 )]
 position = Vector2( 536.42, 544.422 )
 rotation = 1.59477
-shoot_cooldown = 5.0
 
 [node name="Rat10" parent="." instance=ExtResource( 7 )]
 position = Vector2( 551.803, 584.287 )
@@ -137,18 +130,15 @@ position = Vector2( 85.6155, 600.295 )
 
 [node name="ShootyThing20" parent="." instance=ExtResource( 11 )]
 position = Vector2( 113.675, 520.328 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="ShootyThing21" parent="." instance=ExtResource( 11 )]
 position = Vector2( 222.055, 520.125 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="ShootyThing22" parent="." instance=ExtResource( 11 )]
 position = Vector2( 320.046, 535.973 )
-scale = Vector2( 1, -1 )
-shoot_cooldown = 5.0
+rotation = 3.14159
 
 [node name="Rat14" parent="." instance=ExtResource( 7 )]
 position = Vector2( 305.457, 600.074 )
@@ -159,12 +149,10 @@ position = Vector2( 203.901, 599.074 )
 [node name="ShootyThing23" parent="." instance=ExtResource( 11 )]
 position = Vector2( 975.2, 455.788 )
 rotation = -3.17158
-shoot_cooldown = 5.0
 
 [node name="ShootyThing24" parent="." instance=ExtResource( 11 )]
 position = Vector2( 997.2, 496.814 )
 rotation = -1.58958
-shoot_cooldown = 5.0
 
 [node name="Node2D11" parent="." instance=ExtResource( 9 )]
 position = Vector2( 919.237, 542.599 )
@@ -184,12 +172,10 @@ position = Vector2( 778.614, 783.47 )
 [node name="ShootyThing25" parent="." instance=ExtResource( 11 )]
 position = Vector2( 881.114, 742.97 )
 rotation = 3.11691
-shoot_cooldown = 5.0
 
 [node name="ShootyThing26" parent="." instance=ExtResource( 11 )]
 position = Vector2( 997.614, 663.97 )
 rotation = -1.63266
-shoot_cooldown = 5.0
 
 [node name="Node2D14" parent="." instance=ExtResource( 9 )]
 position = Vector2( 796.821, 710.445 )
@@ -198,12 +184,10 @@ rotation = -1.5886
 [node name="ShootyThing27" parent="." instance=ExtResource( 11 )]
 position = Vector2( 789.365, 667.97 )
 rotation = -1.55843
-shoot_cooldown = 5.0
 
 [node name="ShootyThing28" parent="." instance=ExtResource( 11 )]
 position = Vector2( 658.614, 742.47 )
 rotation = 3.13457
-shoot_cooldown = 5.0
 
 [node name="Rat18" parent="." instance=ExtResource( 7 )]
 position = Vector2( 503.614, 719.47 )
@@ -245,17 +229,14 @@ position = Vector2( 58.1143, 779.47 )
 [node name="ShootyThing30" parent="." instance=ExtResource( 11 )]
 position = Vector2( 126.614, 775.97 )
 rotation = -3.1329
-shoot_cooldown = 5.0
 
 [node name="ShootyThing31" parent="." instance=ExtResource( 11 )]
 position = Vector2( 174.614, 775.97 )
 rotation = 3.11962
-shoot_cooldown = 5.0
 
 [node name="ShootyThing32" parent="." instance=ExtResource( 11 )]
 position = Vector2( 222.614, 775.97 )
 rotation = -3.1383
-shoot_cooldown = 5.0
 
 [node name="Node2D24" parent="." instance=ExtResource( 9 )]
 position = Vector2( 246.614, 751.97 )
@@ -298,7 +279,6 @@ rotation = 1.57502
 [node name="ShootyThing33" parent="." instance=ExtResource( 11 )]
 position = Vector2( 165.126, 503.297 )
 rotation = 3.13353
-shoot_cooldown = 5.0
 
 [node name="Node2D36" parent="." instance=ExtResource( 10 )]
 position = Vector2( 87.9363, -744.008 )
@@ -333,7 +313,6 @@ rotation = 1.58345
 
 [node name="ShootyThing29" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392.123, 727.032 )
-shoot_cooldown = 5.0
 
 [node name="BasicMelee" parent="." instance=ExtResource( 12 )]
 position = Vector2( 287.925, -872.025 )
@@ -397,7 +376,6 @@ music_track = "fight2"
 [node name="ShootyThing" parent="." instance=ExtResource( 11 )]
 position = Vector2( 184, 872 )
 rotation = -3.1278
-shoot_cooldown = 5.0
 
 [node name="Node2D4" parent="." instance=ExtResource( 9 )]
 position = Vector2( 168, 928 )
@@ -440,27 +418,22 @@ position = Vector2( 312.074, 863.973 )
 [node name="ShootyThing2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 344.073, 855.97 )
 rotation = -1.58714
-shoot_cooldown = 5.0
 
 [node name="ShootyThing3" parent="." instance=ExtResource( 11 )]
 position = Vector2( 480.076, 887.959 )
 rotation = -1.59034
-shoot_cooldown = 5.0
 
 [node name="ShootyThing4" parent="." instance=ExtResource( 11 )]
 position = Vector2( 528.076, 887.955 )
 rotation = 1.55457
-shoot_cooldown = 5.0
 
 [node name="ShootyThing5" parent="." instance=ExtResource( 11 )]
 position = Vector2( 456.075, 871.961 )
 rotation = 3.12283
-shoot_cooldown = 5.0
 
 [node name="ShootyThing6" parent="." instance=ExtResource( 11 )]
 position = Vector2( 552.073, 855.953 )
 rotation = 3.13988
-shoot_cooldown = 5.0
 
 [node name="Node2D52" parent="." instance=ExtResource( 9 )]
 position = Vector2( 504.077, 895.957 )
@@ -481,32 +454,26 @@ position = Vector2( 640.079, 927.945 )
 [node name="ShootyThing7" parent="." instance=ExtResource( 11 )]
 position = Vector2( 712.075, 871.939 )
 rotation = 1.5553
-shoot_cooldown = 5.0
 
 [node name="ShootyThing8" parent="." instance=ExtResource( 11 )]
 position = Vector2( 736.073, 855.937 )
 rotation = 3.13461
-shoot_cooldown = 5.0
 
 [node name="ShootyThing9" parent="." instance=ExtResource( 11 )]
 position = Vector2( 760.072, 839.935 )
 rotation = 3.11914
-shoot_cooldown = 5.0
 
 [node name="ShootyThing10" parent="." instance=ExtResource( 11 )]
 position = Vector2( 792.073, 855.932 )
 rotation = -1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing11" parent="." instance=ExtResource( 11 )]
 position = Vector2( 808.075, 871.931 )
 rotation = -1.77015
-shoot_cooldown = 5.0
 
 [node name="ShootyThing12" parent="." instance=ExtResource( 11 )]
 position = Vector2( 824.076, 887.929 )
 rotation = -1.58969
-shoot_cooldown = 5.0
 
 [node name="Rat6" parent="." instance=ExtResource( 7 )]
 position = Vector2( 728.077, 895.938 )
@@ -535,31 +502,24 @@ position = Vector2( 992.079, 927.915 )
 [node name="ShootyThing34" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1000.08, 903.914 )
 rotation = -1.61984
-shoot_cooldown = 5.0
 
 [node name="ShootyThing35" parent="." instance=ExtResource( 11 )]
 position = Vector2( 592.087, 1015.95 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing36" parent="." instance=ExtResource( 11 )]
 position = Vector2( 640.087, 1015.95 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing37" parent="." instance=ExtResource( 11 )]
 position = Vector2( 672.087, 1015.94 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing38" parent="." instance=ExtResource( 11 )]
 position = Vector2( 720.087, 1015.94 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing39" parent="." instance=ExtResource( 11 )]
 position = Vector2( 768.087, 1015.93 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing40" parent="." instance=ExtResource( 11 )]
 position = Vector2( 816.087, 1015.93 )
-shoot_cooldown = 5.0
 
 [node name="Node2D57" parent="." instance=ExtResource( 9 )]
 position = Vector2( 704.087, 1015.94 )
@@ -626,7 +586,6 @@ position = Vector2( 400.116, 1359.97 )
 [node name="ShootyThing41" parent="." instance=ExtResource( 11 )]
 position = Vector2( 80.0816, 951.993 )
 rotation = -3.12276
-shoot_cooldown = 5.0
 
 [node name="Node2D64" parent="." instance=ExtResource( 9 )]
 position = Vector2( 616.125, 1455.95 )
@@ -637,23 +596,18 @@ position = Vector2( 632.125, 1455.95 )
 [node name="ShootyThing42" parent="." instance=ExtResource( 11 )]
 position = Vector2( 136.091, 1063.99 )
 rotation = 3.133
-shoot_cooldown = 5.0
 
 [node name="ShootyThing43" parent="." instance=ExtResource( 11 )]
 position = Vector2( 128.097, 1127.99 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing44" parent="." instance=ExtResource( 11 )]
 position = Vector2( 160.099, 1159.99 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing45" parent="." instance=ExtResource( 11 )]
 position = Vector2( 202.937, 1191.98 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing46" parent="." instance=ExtResource( 11 )]
 position = Vector2( 251.129, 1224.92 )
-shoot_cooldown = 5.0
 
 [node name="Node2D66" parent="." instance=ExtResource( 9 )]
 position = Vector2( 232.106, 1231.98 )
@@ -670,41 +624,33 @@ position = Vector2( 104.096, 1119.99 )
 [node name="ShootyThing47" parent="." instance=ExtResource( 11 )]
 position = Vector2( 168.093, 1087.99 )
 rotation = -1.53829
-shoot_cooldown = 5.0
 
 [node name="ShootyThing48" parent="." instance=ExtResource( 11 )]
 position = Vector2( 216.098, 1143.98 )
 rotation = -3.11421
-shoot_cooldown = 5.0
 
 [node name="ShootyThing49" parent="." instance=ExtResource( 11 )]
 position = Vector2( 272.101, 1175.98 )
 rotation = -3.14634
-shoot_cooldown = 5.0
 
 [node name="ShootyThing50" parent="." instance=ExtResource( 11 )]
 position = Vector2( 400.108, 1255.97 )
 rotation = 3.1009
-shoot_cooldown = 5.0
 
 [node name="ShootyThing51" parent="." instance=ExtResource( 11 )]
 position = Vector2( 384.112, 1303.97 )
-shoot_cooldown = 5.0
 
 [node name="ShootyThing52" parent="." instance=ExtResource( 11 )]
 position = Vector2( 440.11, 1287.96 )
 rotation = -1.57727
-shoot_cooldown = 5.0
 
 [node name="ShootyThing53" parent="." instance=ExtResource( 11 )]
 position = Vector2( 312.103, 1207.97 )
 rotation = -1.62805
-shoot_cooldown = 5.0
 
 [node name="ShootyThing54" parent="." instance=ExtResource( 11 )]
 position = Vector2( 360.106, 1239.97 )
 rotation = -3.12809
-shoot_cooldown = 5.0
 
 [node name="Node2D70" parent="." instance=ExtResource( 9 )]
 position = Vector2( 352.111, 1295.97 )
@@ -724,21 +670,17 @@ position = Vector2( 560.123, 1439.95 )
 [node name="ShootyThing55" parent="." instance=ExtResource( 11 )]
 position = Vector2( 552.117, 1367.95 )
 rotation = -3.1367
-shoot_cooldown = 5.0
 
 [node name="ShootyThing56" parent="." instance=ExtResource( 11 )]
 position = Vector2( 624.12, 1399.95 )
 rotation = 3.12667
-shoot_cooldown = 5.0
 
 [node name="ShootyThing57" parent="." instance=ExtResource( 11 )]
 position = Vector2( 488.119, 1383.96 )
 rotation = 1.5708
-shoot_cooldown = 5.0
 
 [node name="ShootyThing58" parent="." instance=ExtResource( 11 )]
 position = Vector2( 584.123, 1431.95 )
-shoot_cooldown = 5.0
 
 [node name="Node2D73" parent="." instance=ExtResource( 10 )]
 position = Vector2( 744.121, 1415.94 )
@@ -760,52 +702,42 @@ health = 300
 [node name="ShootyThing59" parent="." instance=ExtResource( 11 )]
 position = Vector2( 672.205, 2391.94 )
 rotation = -3.12665
-shoot_cooldown = 5.0
 
 [node name="ShootyThing60" parent="." instance=ExtResource( 11 )]
 position = Vector2( 744.204, 2375.94 )
 rotation = -3.13141
-shoot_cooldown = 5.0
 
 [node name="ShootyThing61" parent="." instance=ExtResource( 11 )]
 position = Vector2( 704.205, 2391.94 )
 rotation = -3.14149
-shoot_cooldown = 5.0
 
 [node name="ShootyThing62" parent="." instance=ExtResource( 11 )]
 position = Vector2( 504.203, 2375.96 )
 rotation = 3.1216
-shoot_cooldown = 5.0
 
 [node name="ShootyThing63" parent="." instance=ExtResource( 11 )]
 position = Vector2( 552.201, 2343.95 )
 rotation = -3.13767
-shoot_cooldown = 5.0
 
 [node name="ShootyThing64" parent="." instance=ExtResource( 11 )]
 position = Vector2( 464.202, 2359.96 )
 rotation = 3.14009
-shoot_cooldown = 5.0
 
 [node name="ShootyThing65" parent="." instance=ExtResource( 11 )]
 position = Vector2( 632.204, 2375.95 )
 rotation = -3.12392
-shoot_cooldown = 5.0
 
 [node name="ShootyThing66" parent="." instance=ExtResource( 11 )]
 position = Vector2( 424.205, 2391.96 )
 rotation = 1.55155
-shoot_cooldown = 5.0
 
 [node name="ShootyThing67" parent="." instance=ExtResource( 11 )]
 position = Vector2( 408.208, 2431.97 )
 rotation = 1.56159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing68" parent="." instance=ExtResource( 11 )]
 position = Vector2( 776.202, 2359.93 )
 rotation = -3.14159
-shoot_cooldown = 5.0
 
 [node name="Node2D75" parent="." instance=ExtResource( 10 )]
 position = Vector2( 792.062, 727.932 )
@@ -873,112 +805,90 @@ position = Vector2( 856.254, 2967.93 )
 [node name="ShootyThing69" parent="." instance=ExtResource( 11 )]
 position = Vector2( 88.244, 2847.99 )
 rotation = 1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing70" parent="." instance=ExtResource( 11 )]
 position = Vector2( 160.241, 2807.99 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing71" parent="." instance=ExtResource( 11 )]
 position = Vector2( 184.242, 2823.98 )
 rotation = -3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing72" parent="." instance=ExtResource( 11 )]
 position = Vector2( 200.243, 2839.98 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing73" parent="." instance=ExtResource( 11 )]
 position = Vector2( 216.241, 2815.98 )
 rotation = 1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing74" parent="." instance=ExtResource( 11 )]
 position = Vector2( 216.239, 2791.98 )
 rotation = 1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing75" parent="." instance=ExtResource( 11 )]
 position = Vector2( 240.238, 2775.98 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing76" parent="." instance=ExtResource( 11 )]
 position = Vector2( 264.238, 2775.98 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing77" parent="." instance=ExtResource( 11 )]
 position = Vector2( 288.238, 2775.98 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing78" parent="." instance=ExtResource( 11 )]
 position = Vector2( 312.238, 2775.97 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing79" parent="." instance=ExtResource( 11 )]
 position = Vector2( 336.238, 2775.97 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing80" parent="." instance=ExtResource( 11 )]
 position = Vector2( 360.238, 2775.97 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing81" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392.241, 2807.97 )
 rotation = -1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing82" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392.243, 2831.97 )
 rotation = -1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing83" parent="." instance=ExtResource( 11 )]
 position = Vector2( 408.245, 2855.97 )
 rotation = -1.83259
-shoot_cooldown = 5.0
 
 [node name="ShootyThing84" parent="." instance=ExtResource( 11 )]
 position = Vector2( 440.243, 2839.96 )
 rotation = 1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing85" parent="." instance=ExtResource( 11 )]
 position = Vector2( 472.241, 2807.96 )
 rotation = 1.83259
-shoot_cooldown = 5.0
 
 [node name="ShootyThing86" parent="." instance=ExtResource( 11 )]
 position = Vector2( 504.238, 2783.96 )
 rotation = 1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing87" parent="." instance=ExtResource( 11 )]
 position = Vector2( 536.238, 2775.95 )
 rotation = -3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing88" parent="." instance=ExtResource( 11 )]
 position = Vector2( 560.238, 2775.95 )
 rotation = -3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing89" parent="." instance=ExtResource( 11 )]
 position = Vector2( 592.238, 2775.95 )
 rotation = -3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing90" parent="." instance=ExtResource( 11 )]
 position = Vector2( 616.238, 2775.95 )
 rotation = -3.14159
-shoot_cooldown = 5.0
 
 [node name="Rat42" parent="." instance=ExtResource( 7 )]
 position = Vector2( 112.251, 2927.99 )
@@ -1001,12 +911,10 @@ position = Vector2( 544.251, 2927.95 )
 [node name="ShootyThing91" parent="." instance=ExtResource( 11 )]
 position = Vector2( 88.2412, 2815.99 )
 rotation = 1.57079
-shoot_cooldown = 5.0
 
 [node name="ShootyThing92" parent="." instance=ExtResource( 11 )]
 position = Vector2( 120.239, 2791.99 )
 rotation = -3.14159
-shoot_cooldown = 5.0
 
 [node name="Node2D99" parent="." instance=ExtResource( 10 )]
 position = Vector2( 472.254, 2967.96 )
@@ -1017,17 +925,14 @@ position = Vector2( 136.254, 2967.99 )
 [node name="ShootyThing93" parent="." instance=ExtResource( 11 )]
 position = Vector2( 808.238, 2775.93 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing94" parent="." instance=ExtResource( 11 )]
 position = Vector2( 920.238, 2775.92 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="ShootyThing95" parent="." instance=ExtResource( 11 )]
 position = Vector2( 872.242, 2823.93 )
 rotation = 3.14159
-shoot_cooldown = 5.0
 
 [node name="Rat50" parent="." instance=ExtResource( 7 )]
 position = Vector2( 792.251, 2927.93 )
@@ -1074,7 +979,7 @@ position = Vector2( 184.297, 3463.98 )
 [node name="SLIMEBOSS" parent="." instance=ExtResource( 11 )]
 modulate = Color( 0.027451, 0.952941, 0.976471, 1 )
 position = Vector2( 704.291, 3391.94 )
-rotation = 3.13702
+rotation = 3.14159
 scale = Vector2( 2, 2 )
 attack_time_limit = 30
 health = 400

@@ -24,6 +24,10 @@ config/name="LD 48"
 run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerVariables="*res://Scenes/PlayerVariables.gd"
+
 [display]
 
 window/stretch/mode="viewport"

@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Level/Checkpoint_v2.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16.25, 29.25 )
+extents = Vector2( 16, 32 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -26,6 +26,6 @@ position = Vector2( 0.25, 0.25 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -5.15049, 21.0224 )
+position = Vector2( -5.15, 23.2 )
 frames = SubResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_Checkpoint_body_entered"]

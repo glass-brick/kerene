@@ -1287,9 +1287,9 @@ position = Vector2( 48.7952, 895.996 )
 [node name="Checkpoint3" parent="." instance=ExtResource( 25 )]
 position = Vector2( 240.215, 2511.98 )
 
+[node name="Checkpoint5" parent="." instance=ExtResource( 25 )]
+position = Vector2( 128.297, 3471.99 )
+
 [node name="Checkpoint4" parent="." instance=ExtResource( 25 )]
 position = Vector2( 880.259, 3023.92 )
-
-[node name="Checkpoint" parent="Checkpoint4" instance=ExtResource( 25 )]
-position = Vector2( -751.962, 448.065 )
 [connection signal="timeout" from="Player/RestartAfterDeath" to="Player" method="_on_RestartAfterDeath_timeout"]

@@ -1,12 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Fonts/xolonium/Xolonium.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/UI/HUD.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/background/background5.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/background/background4.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/background/background1.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/background/background3.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/background/background2.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/background/background.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/health.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/sword_item.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/wand.png" type="Texture" id=10]
@@ -49,52 +45,15 @@ __meta__ = {
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 follow_viewport_enable = true
+scroll_limit_end = Vector2( 1024, 1200 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = -100
-motion_mirroring = Vector2( 1024, 600 )
+motion_scale = Vector2( 0, 0.1 )
+motion_offset = Vector2( -512, -100 )
 
 [node name="background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 0.594604, -2.03012 )
-z_index = -100
+scale = Vector2( 1, 2 )
 texture = ExtResource( 3 )
-centered = false
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = -99
-motion_scale = Vector2( 1, 0.2 )
-motion_offset = Vector2( 0, -100 )
-
-[node name="background4" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
-z_index = -99
-texture = ExtResource( 4 )
-centered = false
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = -98
-motion_scale = Vector2( 1, 0.2 )
-
-[node name="background4" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
-texture = ExtResource( 6 )
-centered = false
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = -97
-motion_scale = Vector2( 1, 0.3 )
-motion_offset = Vector2( 0, 200 )
-
-[node name="background4" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-texture = ExtResource( 7 )
-centered = false
-
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = -96
-motion_scale = Vector2( 1, 0.2 )
-motion_offset = Vector2( 0, 400 )
-
-[node name="background4" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
-position = Vector2( 0, -0.89093 )
-texture = ExtResource( 5 )
 centered = false
 
 [node name="TextureProgress" type="TextureProgress" parent="."]

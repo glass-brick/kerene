@@ -66,7 +66,7 @@ func get_active_item():
 func get_input(override_enable_jump):
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
-	var up = Input.is_action_pressed('ui_up')
+	var up = Input.is_action_just_pressed('ui_up')
 	var jump = Input.is_action_just_pressed('ui_select')
 	var use = Input.is_action_just_pressed("Use_item")
 
@@ -103,11 +103,11 @@ func get_input(override_enable_jump):
 	get_item_input()
 
 	if up:
-		var tile_position = tilemap.world_to_map(global_position)
+		var tile_position = tilemap.global_to_map(global_position)
 		var is_stair = tilemap.is_stair(tile_position)
 		if is_stair:
 			current_state = PlayerStates.CLIMB_STOP
-			position = tilemap.map_to_world(tile_position) + (tilemap.cell_size / 2)
+			global_position = tilemap.map_to_global(tile_position) + (tilemap.cell_size / 2)
 			velocity = Vector2(0, 0)
 
 
@@ -170,7 +170,7 @@ func get_stair_input():
 	var down = Input.is_action_pressed('ui_down')
 
 	if up or down:
-		var tile_position = tilemap.world_to_map(global_position)
+		var tile_position = tilemap.global_to_map(global_position)
 		var multiplier = -1 if up else 1
 		tile_position.y += multiplier
 		if tilemap.is_stair(tile_position):

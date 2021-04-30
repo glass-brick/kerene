@@ -338,7 +338,6 @@ func save():
 	for name in self.items:
 		save_items[name] = {"amount": self.items[name]['amount']}
 	dict_save['items'] = save_items
-	dict_save['health'] = self.health
 	dict_save['active_item'] = self.active_item
 	var playerVariables = get_node('/root/PlayerVariables')
 	playerVariables.data = dict_save
@@ -353,5 +352,4 @@ func load():
 	self.global_position.y = dict_save['position']['y']
 	for name in dict_save['items']:
 		self.items[name]['amount'] = dict_save['items'][name]['amount']
-	self.health = dict_save['health']
 	self.active_item = dict_save['active_item']

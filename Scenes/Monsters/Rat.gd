@@ -10,9 +10,12 @@ export (int) var health = 30
 var velocity = Vector2(0, 0)
 var state_time = 0
 
+enum RatStates { MOVING, ATTACKING, HIT, DEAD }
+
 
 func _ready():
-	set_monster_state(MonsterStates.MOVING)
+	setup(RatStates)
+	set_monster_state(RatStates.MOVING)
 
 
 func _on_moving_start(_meta):
@@ -39,7 +42,7 @@ func detect_attack():
 		var space_state = get_world_2d().direct_space_state
 		var result = space_state.intersect_ray(global_position, player.global_position, [self])
 		if result and result.collider == player:
-			set_monster_state(MonsterStates.ATTACKING)
+			set_monster_state(RatStates.ATTACKING)
 			return true
 	return false
 
@@ -54,7 +57,7 @@ func _process_attacking(_delta, _meta):
 	state_time += 1
 	if state_time > attack_time_limit:
 		state_time = 0
-		set_monster_state(MonsterStates.MOVING)
+		set_monster_state(RatStates.MOVING)
 
 
 func _common_physics_process(delta):
@@ -63,11 +66,9 @@ func _common_physics_process(delta):
 
 
 func _on_hit(damageTaken, attacker):
-	if not (get_monster_state() == MonsterStates.HIT or get_monster_state() == MonsterStates.DEAD):
+	if not (get_monster_state() == RatStates.HIT or get_monster_state() == RatStates.DEAD):
 		health = max(0, health - damageTaken)
-		set_monster_state_with_meta(
-			MonsterStates.HIT if health > 0 else MonsterStates.DEAD, attacker
-		)
+		set_monster_state_with_meta(RatStates.HIT if health > 0 else RatStates.DEAD, attacker)
 
 
 func _on_hit_start(attacker):
@@ -89,8 +90,8 @@ func _on_dead_start(_meta):
 
 
 func _on_AnimatedSprite_animation_finished():
-	if get_monster_state() == MonsterStates.HIT:
-		set_monster_state(MonsterStates.MOVING)
+	if get_monster_state() == RatStates.HIT:
+		set_monster_state(RatStates.MOVING)
 
 
 func _on_CleanBody_timeout():
@@ -98,5 +99,5 @@ func _on_CleanBody_timeout():
 
 
 func _on_Hitbox_body_entered(body):
-	if not get_monster_state() == MonsterStates.DEAD and body.has_method('_on_hit'):
+	if not get_monster_state() == RatStates.DEAD and body.has_method('_on_hit'):
 		body._on_hit(self.damage, self)

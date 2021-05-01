@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scenes/Level/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Music/pizzaconmerca.wav" type="AudioStream" id=23]
 [ext_resource path="res://Music/zatan.wav" type="AudioStream" id=24]
 [ext_resource path="res://Scenes/Level/Checkpoint_v2.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Scenes/Monsters/Mecherito.tscn" type="PackedScene" id=26]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 138.889, 10 )
@@ -60,9 +61,6 @@ limit_right = 1024
 script = ExtResource( 1 )
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
-
-[node name="Rat7" parent="." instance=ExtResource( 7 )]
-position = Vector2( 541.487, 274.037 )
 
 [node name="ShootyThing13" parent="." instance=ExtResource( 11 )]
 position = Vector2( 824.025, 296.685 )
@@ -894,6 +892,9 @@ position = Vector2( 168.351, 4096.74 )
 
 [node name="Rat44" parent="." instance=ExtResource( 7 )]
 position = Vector2( 208.351, 4096.73 )
+
+[node name="Mecherito" parent="." instance=ExtResource( 26 )]
+position = Vector2( 584.022, 255.95 )
 
 [node name="Rat45" parent="." instance=ExtResource( 7 )]
 position = Vector2( 384.351, 4096.72 )

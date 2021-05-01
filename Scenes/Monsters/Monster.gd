@@ -1,25 +1,22 @@
 extends KinematicBody2D
 class_name Monster
 
-enum MonsterStates { MOVING, IDLE, HIT, ATTACKING, DEAD }
-export (MonsterStates) var initial_state
 enum Sides { LEFT, RIGHT }
 export (Sides) var initial_side
 var current_state
 var current_side
 var current_metadata
-var states = {
-	MonsterStates.MOVING: {"process": "_process_moving", "start": "_on_moving_start"},
-	MonsterStates.IDLE: {"process": "_process_idle", "start": "_on_idle_start"},
-	MonsterStates.HIT: {"process": "_process_hit", "start": "_on_hit_start"},
-	MonsterStates.ATTACKING: {"process": "_process_attacking", "start": "_on_attacking_start"},
-	MonsterStates.DEAD: {"process": "_process_dead", "start": "_on_dead_start"}
-}
+var states
+var stateFunctions = {}
 
 
-func _ready():
-	set_monster_state(initial_state)
-	set_current_side(initial_side)
+func setup(statesEnum):
+	states = statesEnum
+	for key in statesEnum.keys():
+		stateFunctions[statesEnum[key]] = {
+			"process": "_process_%s" % key.to_lower(),
+			"start": "_on_%s_start" % key.to_lower(),
+		}
 
 
 func _common_physics_process(_delta):
@@ -28,19 +25,19 @@ func _common_physics_process(_delta):
 
 func _physics_process(delta):
 	_common_physics_process(delta)
-	var process_func = states[current_state]["process"]
+	var process_func = stateFunctions[current_state]["process"]
+	if not process_func:
+		print('UNEXPECTED STATE:', current_state)
 	if has_method(process_func):
 		call(process_func, delta, current_metadata)
-	else:
-		print('UNEXPECTED STATE:', current_state)
 
 
 func trigger_state_change():
-	var change_func = states[current_state]["start"]
+	var change_func = stateFunctions[current_state]["start"]
+	if not change_func:
+		print('UNEXPECTED STATE:', current_state)
 	if has_method(change_func):
 		call(change_func, current_metadata)
-	else:
-		print('UNEXPECTED STATE:', current_state)
 
 
 func set_monster_state(new_state):

@@ -14,10 +14,12 @@ var shoot_cooldown_current = 0
 onready var detection_area = $DetectionArea
 var state_time = 0
 var velocity = Vector2(0, 0)
+enum SlimeStates { IDLE, ATTACKING, HIT, DEAD }
 
 
 func _ready():
-	set_monster_state(MonsterStates.IDLE)
+	setup(SlimeStates)
+	set_monster_state(SlimeStates.IDLE)
 
 
 func _on_idle_start(_meta):
@@ -31,13 +33,13 @@ func _process_idle(_delta, _meta):
 		var space_state = get_world_2d().direct_space_state
 		var result = space_state.intersect_ray(global_position, player.global_position, [self])
 		if result and result.collider == player:
-			set_monster_state_with_meta(MonsterStates.ATTACKING, player)
+			set_monster_state_with_meta(SlimeStates.ATTACKING, player)
 
 
 func _process_attacking(delta, target):
 	var detectedEntities = detection_area.get_overlapping_bodies()
 	if detectedEntities.empty():
-		set_monster_state(MonsterStates.IDLE)
+		set_monster_state(SlimeStates.IDLE)
 		return
 	var difference = target.global_position - self.global_position
 	$AnimatedSprite.flip_h = difference.x < 0
@@ -84,11 +86,9 @@ func _on_hit_start(attacker):
 
 
 func _on_hit(damageTaken, attacker):
-	if not (get_monster_state() == MonsterStates.HIT or get_monster_state() == MonsterStates.DEAD):
+	if not (get_monster_state() == SlimeStates.HIT or get_monster_state() == SlimeStates.DEAD):
 		health = max(0, health - damageTaken)
-		set_monster_state_with_meta(
-			MonsterStates.HIT if health > 0 else MonsterStates.DEAD, attacker
-		)
+		set_monster_state_with_meta(SlimeStates.HIT if health > 0 else SlimeStates.DEAD, attacker)
 
 
 func _on_CleanBody_timeout():
@@ -96,12 +96,12 @@ func _on_CleanBody_timeout():
 
 
 func _on_AnimatedSprite_animation_finished():
-	if get_monster_state() == MonsterStates.ATTACKING:
+	if get_monster_state() == SlimeStates.ATTACKING:
 		$AnimatedSprite.play('alert')
-	if get_monster_state() == MonsterStates.HIT:
-		set_monster_state(MonsterStates.IDLE)
+	if get_monster_state() == SlimeStates.HIT:
+		set_monster_state(SlimeStates.IDLE)
 
 
 func _on_Hitbox_body_entered(body):
-	if not get_monster_state() == MonsterStates.DEAD and body.has_method('_on_hit'):
+	if not get_monster_state() == SlimeStates.DEAD and body.has_method('_on_hit'):
 		body._on_hit(self.damage, self)

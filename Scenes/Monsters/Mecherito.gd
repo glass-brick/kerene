@@ -7,7 +7,7 @@ export (int) var gravity = 1200
 export (int) var damage = 10
 export (int) var health = 30
 
-enum MecheritoStates { IDLE, MOVING, ALERT, EXPLODING }
+enum MecheritoStates { IDLE, MOVING, ALERT, EXPLODING, DEAD }
 var velocity = Vector2(0, 0)
 
 
@@ -90,9 +90,7 @@ var knockback_frames = 0
 
 
 func _on_hit(damageTaken, attacker):
-	if not get_monster_state() == MecheritoStates.EXPLODING:
-		set_monster_state(MecheritoStates.EXPLODING)
-	elif $AnimatedSprite.frame >= 8:
+	if get_monster_state() == MecheritoStates.EXPLODING and $AnimatedSprite.frame >= 8:
 		# Dont process damage if it's already exploding
 		return
 	health = max(0, health - damageTaken)
@@ -100,6 +98,10 @@ func _on_hit(damageTaken, attacker):
 	velocity.x = -50 if attack_direction.x > 0 else 50
 	velocity.y = -100
 	knockback_frames = 10
+	if health == 0:
+		set_monster_state(MecheritoStates.DEAD)
+	elif not get_monster_state() == MecheritoStates.EXPLODING:
+		set_monster_state(MecheritoStates.EXPLODING)
 
 
 func _on_exploding_start(_meta):
@@ -120,9 +122,19 @@ func _on_AnimatedSprite_frame_changed():
 			for target in detectedEntities:
 				if target.has_method('_on_hit'):
 					target.call('_on_hit', damage, self)
-		elif $AnimatedSprite.frame == 13:
+		elif $AnimatedSprite.frame == 14:
 			# finished explosion
 			queue_free()
+
+
+func _on_dead_start(_meta):
+	$AnimatedSprite.play("dead")
+	$CleanBody.start()
+	velocity.x = 0
+
+
+func _on_CleanBody_timeout():
+	queue_free()
 
 
 func _on_flip_side(new_side):

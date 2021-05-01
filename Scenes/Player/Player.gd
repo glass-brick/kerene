@@ -46,6 +46,7 @@ var items = {
 }
 onready var sprite = $AnimatedSprite
 var active_item = "basic_nothing"
+onready var acme_time = preload("res://Scenes/Player/AcmeTime.gd").new(self)
 
 
 func _ready():
@@ -68,7 +69,6 @@ func get_input(override_enable_jump):
 	var left = Input.is_action_pressed('ui_left')
 	var up = Input.is_action_just_pressed('ui_up')
 	var jump = Input.is_action_just_pressed('ui_select')
-	var use = Input.is_action_just_pressed("Use_item")
 
 	if (left or right) and not (left and right):
 		sprite.flip_h = left
@@ -83,8 +83,20 @@ func get_input(override_enable_jump):
 			velocity.x = min(velocity.x + acceleration, 0)
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
-	if jump and (override_enable_jump or is_on_floor()):
+	if (
+		jump
+		and (
+			is_on_floor()
+			or override_enable_jump
+			or acme_time.is_floor()
+			or acme_time.is_leave_stair()
+		)
+	):
 		velocity.y = jump_speed
+		if acme_time.is_floor():
+			acme_time.end_floor()
+		if acme_time.is_leave_stair():
+			acme_time.end_leave_stair()
 		if jump_damage_activated:
 			self.health = max(self.health - jump_damage, 0)
 			self.hud.update_health(self.health)
@@ -161,8 +173,10 @@ func process_invincibility(delta):
 
 func check_for_stair_exit():
 	var jump = Input.is_action_just_pressed('ui_select')
+	var right = Input.is_action_pressed('ui_right')
+	var left = Input.is_action_pressed('ui_left')
 
-	return jump
+	return jump or left or right
 
 
 func get_stair_input():
@@ -183,11 +197,15 @@ func get_stair_input():
 		velocity.y = 0
 		current_state = PlayerStates.CLIMB_STOP
 
-	if check_for_stair_exit():
+	if not acme_time.is_enter_stair() and check_for_stair_exit():
 		current_state = PlayerStates.UNLOCKED
 		get_input(true)
 	else:
 		velocity = move_and_slide(velocity, Vector2(0, -1))
+
+
+func is_on_stair():
+	return current_state == PlayerStates.CLIMB_MOVE or current_state == PlayerStates.CLIMB_STOP
 
 
 func lock():
@@ -212,10 +230,11 @@ func _physics_process(delta):
 		return
 
 	if not current_state == PlayerStates.DEAD:
+		acme_time.update()
 		cursor.update()
 		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:
 			get_input(false)
-		elif current_state == PlayerStates.CLIMB_STOP or current_state == PlayerStates.CLIMB_MOVE:
+		elif is_on_stair():
 			get_stair_input()
 		get_animation()
 		process_invincibility(delta)
@@ -295,14 +314,15 @@ func play_pickup_sound(item_name):
 
 func use_item():
 	if get_active_item():
-		if get_active_item().use(self.time_since_last_use):
+		if not is_on_stair() and get_active_item().use(self.time_since_last_use):
 			current_state = PlayerStates.USE
 			self.time_since_last_use = 0
 
 
 func mine(tile_position):
 	tilemap.mine(tile_position)
-	current_state = PlayerStates.USE
+	if not is_on_stair():
+		current_state = PlayerStates.USE
 
 
 func _on_AnimatedSprite_animation_finished():

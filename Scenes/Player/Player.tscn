@@ -52,63 +52,63 @@ region = Rect2( 0, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 66, 22, 22 )
+region = Rect2( 88, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 66, 22, 22 )
+region = Rect2( 110, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 66, 22, 22 )
+region = Rect2( 0, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 22, 22, 22 )
+region = Rect2( 22, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 22, 22, 22 )
+region = Rect2( 44, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 22, 22, 22 )
+region = Rect2( 22, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 22, 22, 22 )
+region = Rect2( 66, 66, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 88, 22, 22, 22 )
+region = Rect2( 0, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 110, 22, 22, 22 )
+region = Rect2( 22, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 22, 44, 22, 22 )
+region = Rect2( 44, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 66, 22, 22 )
+region = Rect2( 66, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 44, 22, 22 )
+region = Rect2( 88, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 1 )
-region = Rect2( 66, 44, 22, 22 )
+region = Rect2( 110, 22, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 1 )
-region = Rect2( 88, 66, 22, 22 )
+region = Rect2( 44, 44, 22, 22 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 1 )
-region = Rect2( 110, 66, 22, 22 )
+region = Rect2( 66, 44, 22, 22 )
 
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
@@ -122,35 +122,35 @@ animations = [ {
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "climb",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "interact",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 17 ) ],
+"frames": [ SubResource( 13 ) ],
 "loop": false,
 "name": "fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 18 ) ],
+"frames": [ SubResource( 14 ) ],
 "loop": true,
 "name": "death",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 19 ), SubResource( 20 ) ],
-"loop": false,
-"name": "hit",
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "walk",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 21 ), SubResource( 22 ) ],
-"loop": true,
-"name": "climb",
-"speed": 5.0
+"loop": false,
+"name": "hit",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=24]
@@ -197,7 +197,6 @@ basic_item_projectile = ExtResource( 4 )
 material = SubResource( 1 )
 frames = SubResource( 23 )
 animation = "climb"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -272,5 +271,8 @@ volume_db = 3.0
 [node name="AudioHitGround" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
 volume_db = -8.0
+
+[node name="RestartAfterDeath" type="Timer" parent="."]
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="PlayerAttack/AttackSprite" to="PlayerAttack" method="_on_AttackSprite_animation_finished"]
+[connection signal="timeout" from="RestartAfterDeath" to="." method="_on_RestartAfterDeath_timeout"]

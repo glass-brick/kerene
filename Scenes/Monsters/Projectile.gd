@@ -25,12 +25,18 @@ func _physics_process(delta):
 func explode():
 	$AudioStreamPlayer.play()
 	$AnimatedSprite.play('explode')
+	$Trail.emitting = false
+	$ExplodeTimer.start()
 	exploding = true
 
 
 func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == 'explode':
-		queue_free()
+		$AnimatedSprite.visible = false
+
+
+func _on_ExplodeTimer_timeout():
+	queue_free()
 
 
 func _on_Area2D_body_entered(body):

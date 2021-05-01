@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "AcmeTime",
+"language": "GDScript",
+"path": "res://Scenes/Player/AcmeTime.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Monster",
 "language": "GDScript",
 "path": "res://Scenes/Monsters/Monster.gd"
 } ]
 _global_script_class_icons={
+"AcmeTime": "",
 "Monster": ""
 }
 

@@ -86,13 +86,35 @@ func _process_alert(_delta, _meta):
 	velocity.x = alert_speed if get_current_side() == Sides.RIGHT else -alert_speed
 
 
+var knockback_frames = 0
+
+
+func _on_hit(damageTaken, attacker):
+	if not get_monster_state() == MecheritoStates.EXPLODING:
+		set_monster_state(MecheritoStates.EXPLODING)
+	elif $AnimatedSprite.frame >= 8:
+		# Dont process damage if it's already exploding
+		return
+	health = max(0, health - damageTaken)
+	var attack_direction = attacker.global_position - global_position
+	velocity.x = -50 if attack_direction.x > 0 else 50
+	velocity.y = -100
+	knockback_frames = 10
+
+
 func _on_exploding_start(_meta):
 	$AnimatedSprite.play("detonate")
-	velocity.x = 0
+
+
+func _process_exploding(_delta, _meta):
+	if knockback_frames > 0:
+		knockback_frames -= 1
+	else:
+		velocity.x = 0
 
 
 func _on_AnimatedSprite_frame_changed():
-	if current_state == MecheritoStates.EXPLODING:
+	if get_monster_state() == MecheritoStates.EXPLODING:
 		if $AnimatedSprite.frame >= 8 and $AnimatedSprite.frame <= 12:
 			var detectedEntities = $ExplosionArea.get_overlapping_bodies()
 			for target in detectedEntities:

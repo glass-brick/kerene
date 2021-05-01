@@ -175,7 +175,7 @@ extents = Vector2( 15.2756, 10 )
 extents = Vector2( 6, 13 )
 
 [sub_resource type="CircleShape2D" id=40]
-radius = 67.2027
+radius = 21.5864
 
 [node name="Mecherito" type="KinematicBody2D"]
 collision_layer = 2
@@ -184,8 +184,6 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 35 )
 animation = "idle"
-frame = 7
-playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 36 )
@@ -222,6 +220,7 @@ collision_layer = 2
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
+position = Vector2( 0, -5.94314 )
 shape = SubResource( 40 )
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

@@ -6,54 +6,20 @@ export (MonsterStates) var initial_state
 enum Sides { LEFT, RIGHT }
 export (Sides) var initial_side
 var current_state
-var prev_state
 var current_side
 var current_metadata
+var states = {
+	MonsterStates.MOVING: {"process": "_process_moving", "start": "_on_moving_start"},
+	MonsterStates.IDLE: {"process": "_process_idle", "start": "_on_idle_start"},
+	MonsterStates.HIT: {"process": "_process_hit", "start": "_on_hit_start"},
+	MonsterStates.ATTACKING: {"process": "_process_attacking", "start": "_on_attacking_start"},
+	MonsterStates.DEAD: {"process": "_process_dead", "start": "_on_dead_start"}
+}
 
 
 func _ready():
 	set_monster_state(initial_state)
 	set_current_side(initial_side)
-
-
-func _process_moving(_delta, _meta):
-	pass
-
-
-func _on_moving_start(_meta):
-	pass
-
-
-func _process_idle(_delta, _meta):
-	pass
-
-
-func _on_idle_start(_meta):
-	pass
-
-
-func _process_hit(_delta, _meta):
-	pass
-
-
-func _on_hit_start(_meta):
-	pass
-
-
-func _process_attacking(_delta, _meta):
-	pass
-
-
-func _on_attacking_start(_meta):
-	pass
-
-
-func _process_dead(_delta, _meta):
-	pass
-
-
-func _on_dead_start(_meta):
-	pass
 
 
 func _common_physics_process(_delta):
@@ -62,31 +28,17 @@ func _common_physics_process(_delta):
 
 func _physics_process(delta):
 	_common_physics_process(delta)
-	if current_state == MonsterStates.MOVING:
-		_process_moving(delta, current_metadata)
-	elif current_state == MonsterStates.IDLE:
-		_process_idle(delta, current_metadata)
-	elif current_state == MonsterStates.HIT:
-		_process_hit(delta, current_metadata)
-	elif current_state == MonsterStates.ATTACKING:
-		_process_attacking(delta, current_metadata)
-	elif current_state == MonsterStates.DEAD:
-		_process_dead(delta, current_metadata)
+	var process_func = states[current_state]["process"]
+	if has_method(process_func):
+		call(process_func, delta, current_metadata)
 	else:
 		print('UNEXPECTED STATE:', current_state)
 
 
 func trigger_state_change():
-	if current_state == MonsterStates.MOVING:
-		_on_moving_start(current_metadata)
-	elif current_state == MonsterStates.IDLE:
-		_on_idle_start(current_metadata)
-	elif current_state == MonsterStates.HIT:
-		_on_hit_start(current_metadata)
-	elif current_state == MonsterStates.ATTACKING:
-		_on_attacking_start(current_metadata)
-	elif current_state == MonsterStates.DEAD:
-		_on_dead_start(current_metadata)
+	var change_func = states[current_state]["start"]
+	if has_method(change_func):
+		call(change_func, current_metadata)
 	else:
 		print('UNEXPECTED STATE:', current_state)
 

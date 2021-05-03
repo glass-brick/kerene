@@ -25,7 +25,6 @@ enum PlayerStates { UNLOCKED, LOCKED, USE, HIT, CLIMB_STOP, CLIMB_MOVE, DEAD }
 var current_state = PlayerStates.UNLOCKED
 
 var velocity = Vector2()
-var shader_timer = 0
 var blinking = false
 var invincibility = false
 var invincibility_counter = 0
@@ -159,16 +158,14 @@ func get_animation():
 func process_invincibility(delta):
 	if invincibility and not current_state == PlayerStates.HIT:
 		invincibility_counter += delta
-		shader_timer += delta * blinking_speed
 		var mat = sprite.get_material()
-		mat.set_shader_param("timer", shader_timer)
+		mat.set_shader_param("active", true)
 		if invincibility_counter > self.invincibility_time:
 			invincibility = false
 	else:
 		invincibility_counter = 0
-		shader_timer = 0
 		var mat = sprite.get_material()
-		mat.set_shader_param("timer", shader_timer)
+		mat.set_shader_param("active", false)
 
 
 func check_for_stair_exit():

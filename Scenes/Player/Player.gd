@@ -45,8 +45,8 @@ onready var cursor = load("res://Scenes/Player/Cursor.gd").new(self)
 onready var player_attack = $PlayerAttack
 var items = {
 	"basic_nothing": {"object": basic_item_nothing.new(self), "amount": 1},
-	"basic_attack": {"object": basic_item.new(self), "amount": 0},
-	"basic_projectile_attack": {"object": basic_item_projectile.new(self), "amount": 0}
+	"basic_attack": {"object": basic_item.new(self), "amount": 1},
+	"basic_projectile_attack": {"object": basic_item_projectile.new(self), "amount": 1}
 }
 onready var sprite = $AnimatedSprite
 var active_item = "basic_nothing"

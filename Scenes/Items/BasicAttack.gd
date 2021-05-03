@@ -8,14 +8,15 @@ func _init(player):
 	item_owner = player
 
 
-func use(time_since_last_use):
-	if time_since_last_use > cooldown:
-		item_owner.play_cut_audio()
-		var is_left_side = item_owner.sprite.flip_h
+func can_use(time_since_last_use):
+	return time_since_last_use > cooldown
 
-		if is_left_side:
-			item_owner.player_attack.attack_left(30)
-		else:
-			item_owner.player_attack.attack_right(30)
-		return true
-	return false
+
+func use():
+	item_owner.play_cut_audio()
+	var is_left_side = item_owner.sprite.flip_h
+
+	if is_left_side:
+		item_owner.player_attack.attack_left(30)
+	else:
+		item_owner.player_attack.attack_right(30)

@@ -33,6 +33,7 @@ var time_since_last_use = 0
 var pick_up_sounds = {}
 var was_on_floor = true
 var time_floor_check = 0
+var using_item = false
 
 onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
@@ -111,8 +112,6 @@ func get_input(override_enable_jump):
 		if $AudioFootsteps.playing:
 			$AudioFootsteps.stop()
 
-	get_item_input()
-
 	if up:
 		var tile_position = tilemap.global_to_map(global_position)
 		var is_stair = tilemap.is_stair(tile_position)
@@ -125,7 +124,6 @@ func get_input(override_enable_jump):
 func get_item_input():
 	var item = Input.is_action_just_pressed("item_1")
 	var item2 = Input.is_action_just_pressed("item_2")
-	var item3 = Input.is_action_just_pressed("item_3")
 
 	if item and items["basic_attack"]['amount'] > 0:
 		active_item = "basic_attack"
@@ -135,24 +133,31 @@ func get_item_input():
 
 
 func get_animation():
-	if current_state == PlayerStates.CLIMB_STOP:
-		sprite.play('climb')
-		sprite.stop()
-	elif current_state == PlayerStates.CLIMB_MOVE:
-		sprite.play('climb')
-	elif current_state == PlayerStates.USE:
-		sprite.play('interact')
+	var prev_animation = sprite.animation
+	var new_animation
+	if current_state == PlayerStates.CLIMB_MOVE or current_state == PlayerStates.CLIMB_STOP:
+		new_animation = 'climb'
 	elif current_state == PlayerStates.HIT:
-		sprite.play('hit')
+		new_animation = 'hit'
 	elif not is_on_floor():
 		if velocity.y < 0:
-			sprite.play('jump')
+			new_animation = 'jump'
 		else:
-			sprite.play('fall')
+			new_animation = 'fall'
 	elif velocity.x != 0:
-		sprite.play('walk')
+		new_animation = 'walk'
 	else:
-		sprite.play('idle')
+		new_animation = 'idle'
+
+	if using_item:
+		if 'interact' in prev_animation:
+			sprite.play(prev_animation)
+			return
+		else:
+			new_animation += '_interact'
+	sprite.play(new_animation)
+	if current_state == PlayerStates.CLIMB_STOP:
+		sprite.stop()
 
 
 func process_invincibility(delta):
@@ -229,7 +234,8 @@ func _physics_process(delta):
 	if not current_state == PlayerStates.DEAD:
 		acme_time.update()
 		cursor.update()
-		if current_state == PlayerStates.UNLOCKED or current_state == PlayerStates.USE:
+		get_item_input()
+		if current_state == PlayerStates.UNLOCKED:
 			get_input(false)
 		elif is_on_stair():
 			get_stair_input()
@@ -311,19 +317,23 @@ func play_pickup_sound(item_name):
 
 func use_item():
 	if get_active_item():
-		if not is_on_stair() and get_active_item().use(self.time_since_last_use):
-			current_state = PlayerStates.USE
+		if get_active_item().can_use(self.time_since_last_use):
+			if is_on_stair():
+				sprite.flip_h = (get_global_mouse_position() - global_position).x < 0
+			get_active_item().use()
+			using_item = true
 			self.time_since_last_use = 0
 
 
 func mine(tile_position):
 	tilemap.mine(tile_position)
-	if not is_on_stair():
-		current_state = PlayerStates.USE
+	using_item = true
 
 
 func _on_AnimatedSprite_animation_finished():
-	if current_state == PlayerStates.USE or current_state == PlayerStates.HIT:
+	if using_item:
+		using_item = false
+	if current_state == PlayerStates.HIT:
 		current_state = PlayerStates.UNLOCKED
 
 

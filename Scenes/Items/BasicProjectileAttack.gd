@@ -12,13 +12,14 @@ func _init(player):
 	item_owner = player
 
 
-func use(time_since_last_use):
-	if time_since_last_use > cooldown:
-		item_owner.play_shoot_audio()
-		var target = item_owner.get_global_mouse_position()
-		self.fire_projectile_in_dir((target - item_owner.position).normalized())
-		return true
-	return false
+func can_use(time_since_last_use):
+	return time_since_last_use > cooldown
+
+
+func use():
+	item_owner.play_shoot_audio()
+	var target = item_owner.get_global_mouse_position()
+	self.fire_projectile_in_dir((target - item_owner.global_position).normalized())
 
 
 func fire_projectile_in_dir(direction):

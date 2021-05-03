@@ -196,9 +196,10 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 35 )
-animation = "dead"
+animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 36 )
 
 [node name="DetectionArea" type="Area2D" parent="."]

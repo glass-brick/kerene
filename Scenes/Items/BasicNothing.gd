@@ -7,5 +7,9 @@ func _init(player):
 	item_owner = player
 
 
-func use(time_since_last_use):
+func can_use(_time_since_last_use):
 	return false
+
+
+func use():
+	pass

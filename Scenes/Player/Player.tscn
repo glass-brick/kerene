@@ -187,7 +187,7 @@ animations = [ {
 "speed": 10.0
 }, {
 "frames": [ SubResource( 20 ), SubResource( 21 ) ],
-"loop": false,
+"loop": true,
 "name": "hit",
 "speed": 10.0
 }, {
@@ -197,27 +197,27 @@ animations = [ {
 "speed": 5.0
 }, {
 "frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
-"loop": false,
+"loop": true,
 "name": "climb_interact",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
-"loop": false,
+"loop": true,
 "name": "walk_interact",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
-"loop": false,
+"loop": true,
 "name": "jump_interact",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
-"loop": false,
+"loop": true,
 "name": "fall_interact",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
-"loop": false,
+"loop": true,
 "name": "idle_interact",
 "speed": 10.0
 } ]

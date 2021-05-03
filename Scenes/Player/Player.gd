@@ -34,6 +34,10 @@ var pick_up_sounds = {}
 var was_on_floor = true
 var time_floor_check = 0
 var using_item = false
+var initial_hit_timer = 20
+var hit_timer = 0
+var initial_interact_timer = 20
+var interact_timer = 0
 
 onready var tilemap = get_node(tilemap_path)
 onready var hud = get_node(hud_path)
@@ -133,12 +137,12 @@ func get_item_input():
 
 
 func get_animation():
+	if current_state == PlayerStates.HIT:
+		return sprite.play('hit')
 	var prev_animation = sprite.animation
 	var new_animation
 	if current_state == PlayerStates.CLIMB_MOVE or current_state == PlayerStates.CLIMB_STOP:
 		new_animation = 'climb'
-	elif current_state == PlayerStates.HIT:
-		new_animation = 'hit'
 	elif not is_on_floor():
 		if velocity.y < 0:
 			new_animation = 'jump'
@@ -149,12 +153,14 @@ func get_animation():
 	else:
 		new_animation = 'idle'
 
+	print(prev_animation, new_animation, current_state)
 	if using_item:
-		if 'interact' in prev_animation:
-			sprite.play(prev_animation)
-			return
+		new_animation += '_interact'
+		if prev_animation != new_animation and '_interact' in prev_animation:
+			sprite.animation = new_animation
 		else:
-			new_animation += '_interact'
+			sprite.play(new_animation)
+		return
 	sprite.play(new_animation)
 	if current_state == PlayerStates.CLIMB_STOP:
 		sprite.stop()
@@ -216,6 +222,10 @@ func lock():
 	current_state = PlayerStates.LOCKED
 
 
+func can_use_item():
+	return not (current_state == PlayerStates.LOCKED or current_state == PlayerStates.HIT)
+
+
 func unlock():
 	current_state = PlayerStates.UNLOCKED
 
@@ -226,7 +236,19 @@ func process_locked(delta):
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 
+func process_timers():
+	if hit_timer > 0:
+		hit_timer -= 1
+	elif current_state == PlayerStates.HIT:
+		current_state = PlayerStates.UNLOCKED
+	if interact_timer > 0:
+		interact_timer -= 1
+	elif using_item:
+		using_item = false
+
+
 func _physics_process(delta):
+	process_timers()
 	if current_state == PlayerStates.LOCKED:
 		process_locked(delta)
 		return
@@ -261,6 +283,7 @@ func _on_hit(damageTaken, attacker):
 		velocity.y = -200
 		if health > 0:
 			current_state = PlayerStates.HIT
+			hit_timer = initial_hit_timer
 		else:
 			hud.player_is_dead()
 			$RestartAfterDeath.start()
@@ -322,19 +345,16 @@ func use_item():
 				sprite.flip_h = (get_global_mouse_position() - global_position).x < 0
 			get_active_item().use()
 			using_item = true
+			interact_timer = initial_interact_timer
 			self.time_since_last_use = 0
 
 
 func mine(tile_position):
+	if is_on_stair():
+		sprite.flip_h = (get_global_mouse_position() - global_position).x < 0
 	tilemap.mine(tile_position)
 	using_item = true
-
-
-func _on_AnimatedSprite_animation_finished():
-	if using_item:
-		using_item = false
-	if current_state == PlayerStates.HIT:
-		current_state = PlayerStates.UNLOCKED
+	interact_timer = initial_interact_timer
 
 
 func spend_active_item():

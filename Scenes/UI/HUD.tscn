@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Fonts/xolonium/Xolonium.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/UI/HUD.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/background/background.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/dialogue_box.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/caret.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/UI/DialogueBox.gd" type="Script" id=6]
 [ext_resource path="res://Sprites/health.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/sword_item.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/wand.png" type="Texture" id=10]
@@ -13,6 +16,10 @@ bg_color = Color( 0.32549, 0.0235294, 0.0235294, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 20
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
 font_data = ExtResource( 11 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -185,7 +192,7 @@ texture = ExtResource( 9 )
 [node name="Wand" type="VBoxContainer" parent="Weapons"]
 visible = false
 margin_right = 32.0
-margin_bottom = 97.0
+margin_bottom = 61.0
 
 [node name="Label" type="Label" parent="Weapons/Wand"]
 margin_right = 32.0
@@ -229,5 +236,51 @@ Change Weapons: 1,2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="DialogueBox" type="Control" parent="."]
+visible = false
+margin_left = 16.0
+margin_top = 392.0
+margin_right = 1008.0
+margin_bottom = 584.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Box" type="TextureRect" parent="DialogueBox"]
+anchor_right = 0.244
+margin_right = 253.952
+margin_bottom = 96.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Dialogue" type="RichTextLabel" parent="DialogueBox"]
+margin_left = 33.0
+margin_top = 24.0
+margin_right = 963.0
+margin_bottom = 165.0
+mouse_filter = 2
+custom_fonts/normal_font = SubResource( 3 )
+meta_underlined = false
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum felis at tellus feugiat vehicula. Curabitur efficitur orci eu arcu viverra, ac consequat leo auctor. Phasellus facilisis nisi vel fringilla commodo. In erat ipsum, egestas eget semper a, ullamcorper eu lorem."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Caret" type="TextureRect" parent="DialogueBox"]
+margin_left = 928.0
+margin_top = 126.0
+margin_right = 943.0
+margin_bottom = 144.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
 [connection signal="pressed" from="Yes" to="." method="_on_Yes_pressed"]
 [connection signal="pressed" from="No" to="." method="_on_No_pressed"]
+[connection signal="dialogue_finished" from="DialogueBox" to="." method="_on_dialogue_finished"]
+[connection signal="message_finished" from="DialogueBox" to="." method="_on_message_finished"]

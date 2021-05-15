@@ -1,10 +1,6 @@
 extends Area2D
 
-signal start_music
-signal stop_music
-signal show_message
-
-enum Actions { MESSAGE, PLAY_MUSIC, STOP_MUSIC, CHANGE_SPRITE, BREAK_TILEMAP }
+enum Actions { MESSAGE, DIALOGUE, PLAY_MUSIC, STOP_MUSIC, CHANGE_SPRITE, BREAK_TILEMAP }
 
 export (Array, Actions) var actions = []
 export (Array) var data = []
@@ -12,6 +8,11 @@ export (Array, int) var timings = []
 var active = false
 var current_action_index = 0
 var player
+onready var globals = get_node('/root/Globals')
+
+
+func _ready():
+	$AnimatedSprite.play()
 
 
 func play_action():
@@ -23,11 +24,14 @@ func play_action():
 	var current_data = data[current_action_index]
 
 	if current_action == Actions.MESSAGE:
-		emit_signal("show_message", current_data, current_timing)
+		globals.show_message(current_data, current_timing)
+	elif current_action == Actions.DIALOGUE:
+		globals.start_dialogue(current_data, {"ref": self, "on_finish": "next_action"})
+		return
 	elif current_action == Actions.PLAY_MUSIC:
-		emit_signal("start_music", current_data, false)
+		globals.start_music(current_data, false)
 	elif current_action == Actions.STOP_MUSIC:
-		emit_signal("stop_music", false)
+		globals.stop_music(false)
 	elif current_action == Actions.CHANGE_SPRITE:
 		$AnimatedSprite.play(current_data)
 	elif current_action == Actions.BREAK_TILEMAP:
@@ -41,6 +45,11 @@ func play_action():
 
 
 func _on_Timer_timeout():
+	$Timer.stop()
+	next_action()
+
+
+func next_action():
 	current_action_index += 1
 	if current_action_index >= actions.size() and player.has_method('unlock'):
 		player.unlock()

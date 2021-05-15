@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-signal player_died
-
 export (int) var max_speed = 400
 export (int) var acceleration = 50
 export (int) var jump_speed = -600
@@ -45,8 +43,8 @@ onready var cursor = load("res://Scenes/Player/Cursor.gd").new(self)
 onready var player_attack = $PlayerAttack
 var items = {
 	"basic_nothing": {"object": basic_item_nothing.new(self), "amount": 1},
-	"basic_attack": {"object": basic_item.new(self), "amount": 1},
-	"basic_projectile_attack": {"object": basic_item_projectile.new(self), "amount": 1}
+	"basic_attack": {"object": basic_item.new(self), "amount": 0},
+	"basic_projectile_attack": {"object": basic_item_projectile.new(self), "amount": 0}
 }
 onready var sprite = $AnimatedSprite
 var active_item = "basic_nothing"
@@ -153,7 +151,6 @@ func get_animation():
 	else:
 		new_animation = 'idle'
 
-	print(prev_animation, new_animation, current_state)
 	if using_item:
 		new_animation += '_interact'
 		if prev_animation != new_animation and '_interact' in prev_animation:
@@ -322,8 +319,8 @@ func play_shoot_audio():
 
 
 func _on_RestartAfterDeath_timeout():
-	get_tree().reload_current_scene()
-	emit_signal('player_died')
+	var globals = get_node('/root/Globals')
+	globals.restart_level()
 
 
 func pickup_item(item_name):
@@ -372,10 +369,6 @@ func _on_heal(amount):
 	$AudioHeal.play()
 	self.hud.update_health(self.health)
 	return true
-
-
-func show_message(message, time):
-	hud.show_message(message, time)
 
 
 func save():

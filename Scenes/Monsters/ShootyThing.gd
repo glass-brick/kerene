@@ -50,7 +50,7 @@ func _process_attacking(delta, target):
 		var projectile = Projectile.instance()
 		projectile.direction = (difference).normalized()
 		projectile.speed = projectile_speed
-		get_tree().get_root().get_node("GameManager").add_child(projectile)
+		get_tree().get_root().add_child(projectile)
 		projectile.global_position = self.global_position
 		shoot_cooldown_current = 0
 	else:

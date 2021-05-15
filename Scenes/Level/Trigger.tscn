@@ -9,7 +9,6 @@ extents = Vector2( 16.25, 29.25 )
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 1 )
-trigger_type = 0
 message = "Message"
 time = 2
 

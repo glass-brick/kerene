@@ -64,7 +64,6 @@ func _get_property_list():
 
 
 func _on_Trigger_body_entered(_body):
-	print(_body)
 	var globals = get_node('/root/Globals')
 	if trigger_type == TriggerTypes.MESSAGE:
 		globals.show_message(message, time)

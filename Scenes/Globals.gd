@@ -1,7 +1,15 @@
 extends Node
 
+signal message_finished
+signal dialogue_finished
+
 onready var hud = get_node('/root/Level/HUD')
 onready var player = get_node('/root/Level/Player')
+
+
+func _ready():
+	hud.connect("message_finished", self, "on_message_finished")
+	hud.connect("dialogue_finished", self, "on_dialogue_finished")
 
 
 func show_message(message, time):
@@ -10,9 +18,14 @@ func show_message(message, time):
 
 func start_dialogue(messages, options = {}):
 	hud.start_dialogue(messages, options)
-	if "on_finish" in options and "ref" in options:
-		print('connected!', options["ref"], options["on_finish"])
-		hud.connect("dialogue_finished", options["ref"], options["on_finish"])
+
+
+func on_message_finished():
+	emit_signal("message_finished")
+
+
+func on_dialogue_finished():
+	emit_signal("dialogue_finished")
 
 
 var music_fading_in = []

@@ -266,6 +266,7 @@ margin_right = 963.0
 margin_bottom = 165.0
 mouse_filter = 2
 custom_fonts/normal_font = SubResource( 3 )
+visible_characters = 0
 meta_underlined = false
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dictum felis at tellus feugiat vehicula. Curabitur efficitur orci eu arcu viverra, ac consequat leo auctor. Phasellus facilisis nisi vel fringilla commodo. In erat ipsum, egestas eget semper a, ullamcorper eu lorem."
 scroll_active = false

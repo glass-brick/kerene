@@ -13,6 +13,7 @@ onready var globals = get_node('/root/Globals')
 
 func _ready():
 	$AnimatedSprite.play()
+	globals.connect("dialogue_finished", self, "next_action")
 
 
 func play_action():
@@ -26,7 +27,7 @@ func play_action():
 	if current_action == Actions.MESSAGE:
 		globals.show_message(current_data, current_timing)
 	elif current_action == Actions.DIALOGUE:
-		globals.start_dialogue(current_data, {"ref": self, "on_finish": "next_action"})
+		globals.start_dialogue(current_data)
 		return
 	elif current_action == Actions.PLAY_MUSIC:
 		globals.start_music(current_data, false)

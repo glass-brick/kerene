@@ -7,7 +7,7 @@ var queued_messages = []
 var current_message = null
 var progress = 0
 var finished = false
-var speed = 1
+var speed = 20
 
 
 func _ready():
@@ -23,18 +23,20 @@ func _process(delta):
 	if key_pressed:
 		if finished:
 			continue_dialogue()
+			return
 		else:
-			progress = 1
+			progress = current_message.length()
 
-	progress = min(progress + speed * delta, 1)
-	$Dialogue.percent_visible = progress
+	progress = min(progress + speed * delta, current_message.length())
+	$Dialogue.visible_characters = progress
 
-	if progress == 1:
+	if progress == current_message.length():
 		finished = true
 		$Caret.visible = true
 
 
 func continue_dialogue():
+	finished = false
 	if queued_messages.empty():
 		self.visible = false
 		current_message = null
